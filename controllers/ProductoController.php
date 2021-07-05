@@ -2,114 +2,100 @@
 
 class ProductoController
 {
+  static public function getProducto($item, $value)
+  {
+    $respuesta = ProductoModel::getProducto($item, $value);
+    return $respuesta;
+  }
 
-    static public function getProductos($item, $value)
-    {
-        $table = "producto_v";
-        $request = ProductoModel::getData($table, $item, $value);
+  static public function getCategoria()
+  {
+    $respuesta = ProductoModel::getCategoria();
+    return $respuesta;
+  }
 
-        return $request;
+  static public function getSubCategoria()
+  {
+    $respuesta = ProductoModel::getSubCategoria();
+    return $respuesta;
+  }
+
+  static public function getMarca()
+  {
+    $respuesta = ProductoModel::getMarca();
+    return $respuesta;
+  }
+
+  static public function getUnidad()
+  {
+    $respuesta = ProductoModel::getUnidad();
+    return $respuesta;
+  }
+
+
+
+
+  //   static public function getSexo()
+  //   {
+  //     $respuesta = EmpleadoModel::getSexo();
+  //     return $respuesta;
+  //   }
+
+  //   static public function getTipoUsuario()
+  //   {
+  //     $respuesta = EmpleadoModel::getTipoUsuario();
+  //     return $respuesta;
+  //   }
+
+  static public function registrarProducto()
+  {
+    $datos = array(
+      "codigo" => $_POST["codigo"],
+      "nombre" => $_POST["nombre"],
+      "idCategoria" => $_POST["idCategoria"],
+      "idSubCategoria" => $_POST["idSubCategoria"],
+      "idMarca" => $_POST["idMarca"],
+      "idUnidad" => $_POST["idUnidad"],
+      "descripcion" => $_POST["descripcion"],
+      "stockIni" => $_POST["stockIni"],
+      "stockMini" => $_POST["stockMini"],
+      "precioCompra" => $_POST["precioCompra"],
+      "precioVenta" => $_POST["precioVenta"],
+      "estado" => $_POST["estado"]
+
+      //   "estado" => $_POST["estado"],
+
+    );
+
+    // print_r($datos);
+    // die;
+
+    $respuesta = ProductoModel::registrarProducto($datos);
+    // print_r($respuesta);
+    // echo "status" . $respuesta["status"];
+    if ($respuesta["status"] == 200) {
+      echo "<script> 
+          
+
+          Swal.fire(
+            'Good job!',
+            'You clicked the button!',
+            'success'
+          )
+       </script>";
+    } else {
+
+      echo "<script> 
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href>Why do I have this issue?</a>'
+              })
+        </script>";
     }
-    static public function registrarProducto()
-    {
+    // print_r($respuesta);
 
-        if (isset($_POST["idCategoria"]) && !empty($_POST["idCategoria"])) {
-
-            if (
-                preg_match('/^[0-9]+$/', $_POST["idCategoria"]) &&
-                preg_match('/^[0-9]+$/', $_POST["idTipoProducto"]) &&
-                preg_match('/^[0-9]+$/', $_POST["idSubTipo"]) &&
-                preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["producto"]) &&
-                preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["descripcion"]) &&
-                preg_match('/^[0-9]+$/', $_POST["idEstado"])
-            ) {
-
-                if (isset($_POST["idProducto"])) {
-
-                    $datos = array(
-                        "idProducto" => $_POST["idProducto"],
-                        "idCategoria" => $_POST["idCategoria"],
-                        "idTipoProducto" => $_POST["idTipoProducto"],
-                        "idSubTipo" => $_POST["idSubTipo"],
-                        "producto" => $_POST["producto"],
-                        "descripcion" => $_POST["descripcion"],
-                        "producto" => $_POST["idEstado"]
-                    );
-                } else {
-
-                    $datos = array(
-                        "idCategoria" => $_POST["idCategoria"],
-                        "idTipoProducto" => $_POST["idTipoProducto"],
-                        "idSubTipo" => $_POST["idSubTipo"],
-                        "producto" => $_POST["producto"],
-                        "descripcion" => $_POST["descripcion"],
-                        "idEstado" => $_POST["idEstado"]
-                    );
-                }
-
-
-                $respuesta = ProductoModel::registrarProducto($datos);
-
-                // print_r($respuesta["status"] == 200);
-
-                if ($respuesta["status"] == 200) {
-                    echo '<script>
-                        jQuery(document).ready(function () {
-                                Swal.fire(
-                                    "Ok!",
-                                    "Se ha registro correctamente!",
-                                    "success"
-                                );
-                            });
-                        </script>';
-                }
-            }
-        }
-    }
-
-    static public function eliminarProducto()
-    {
-
-        if (isset($_GET["idProducto"])) {
-
-            $tabla = "producto";
-            $datos = $_GET["idProducto"];
-
-            // if ($_GET["imagen"] != "" && $_GET["imagen"] != "vistas/img/productos/default/anonymous.png") {
-
-            //     unlink($_GET["imagen"]);
-            //     rmdir('vistas/img/productos/' . $_GET["codigo"]);
-            // }
-
-            $respuesta = ProductoModel::eliminarProducto($tabla, $datos);
-
-            if ($respuesta == true) {
-
-                echo '<script>
-                jQuery(document).ready(function () {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Eliminado.",
-                        text: "El producto ha sido borrado correctamente!"
-                      }).then(function(result) {
-                                if (result.value) {
-                                    window.location = "index.php?route=administracionProductos";
-                                }
-                            });
-                });
-
-				</script>';
-            } else {
-                echo "<script>
-                jQuery(document).ready(function () {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    });
-                })
-				</script>";
-            }
-        }
-    }
+    return;
+  }
 }
