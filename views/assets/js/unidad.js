@@ -1,10 +1,4 @@
 $(function () {
-  $(document).ready(function () {
-    //$(selector).inputmask("99-9999999");  //static mask
-    $("#identificacion").inputmask({ mask: "999-9999999-9" });
-    $("#telefono").inputmask({ mask: "(999) 999-9999" }); //specifying options
-    $("#celular").inputmask({ mask: "(999) 999-9999" }); //specifying options
-  });
 
   //VALIDACION
   $(function () {
@@ -14,43 +8,12 @@ $(function () {
       },
     });
 
-    $("#formEmployee").validate({
+    $("#formUnidad").validate({
       rules: {
 
         nombre: {
           required: true,
           minlength: 2,
-        },
-        apellido: {
-          required: true,
-        },
-        apellido: {
-          required: true,
-        },
-        sexo: {
-          required: true,
-        },
-        identificacion: {
-          required: true,
-        },
-        usuario: {
-          required: true,
-        },
-        clave: {
-          required: true,
-        },
-        tipoUsuario: {
-          required: true,
-        },
-        telefono: {
-          required: true,
-        },
-        correo: {
-          required: true,
-          email: true,
-        },
-        fechaNacimiento: {
-          required: true,
         },
         estado: {
           required: true,
@@ -72,35 +35,28 @@ $(function () {
       },
 
       submitHandler: function (e) {
-        console.log('evento: ', e);
+        // console.log('evento: ', e);
         const dato = new FormData();
+        let idUnidad = 0;
+        idUnidad = Number($('#idUnidad').val());
 
-        if (Number($('#idEmpleado').val()) > 0) {
-          dato.append("exec", 'actualizandoEmpleado');
-          dato.append("idEmpleado", Number($('#idEmpleado').val()));
+        if (idUnidad > 0) {
+          dato.append("exec", 'actualizandoUnidad');
+          dato.append("idUnidad", Number($('#idUnidad').val()));
           console.log('actualizandoEmpleado');
         } else {
-          dato.append("exec", 'registrarEmpleado');
-          console.log('registrarEmpleado');
+          dato.append("exec", 'registrarUnidad');
+          console.log('registrarUnidad');
         }
 
         //return;
         // dato.append("exec", 'registrarEmpleado');
         dato.append("nombre", $("#nombre").val());
-        dato.append("apellido", $("#apellido").val());
-        dato.append("idSexo", $("#sexo").val());
-        dato.append("identificacion", $("#identificacion").val());
-        dato.append("usuario", $("#usuario").val());
-        dato.append("clave", $("#clave").val());
-        dato.append("tipoUsuario", $("#tipoUsuario").val());
-        dato.append("telefono", $("#telefono").val());
-        dato.append("correo", $("#correo").val());
-        dato.append("fechaNacimiento", $("#fechaNacimiento").val());
         dato.append("estado", $("#estado").val());
 
         console.log('daara: ', dato);
         $.ajax({
-          url: "ajax/EmpleadoAjax.php",
+          url: "ajax/UnidadAjax.php",
           method: "POST",
           data: dato,
           cache: false,
@@ -108,8 +64,10 @@ $(function () {
           processData: false,
           dataType: "json",
           success: function (respuesta) {
-            if (Number(respuesta.status) == 200) {
-              Swal.fire("Ok!", "Se ha guardado correctamente!", "success").then((result) => {
+            console.log('respuesta: ', respuesta);
+            // return;
+            if (respuesta == true) {
+              Swal.fire("Ok!", `${idUnidad > 0 ? 'Se ha actualizado correctamente!' : 'Se ha guardado correctamente!'}`, "success").then((result) => {
                 location.reload();
               });
             } else {
@@ -122,17 +80,8 @@ $(function () {
             $(".form-control").val("");
             $("#close").click();
 
-            $("#idEmpleado").val("0");
+            $("#idUnidad").val("0");
             $("#nombre").val("");
-            $("#apellido").val("");
-            $("#sexo").val(0);
-            $("#identificacion").val("");
-            $("#usuario").val("");
-            $("#clave").val("");
-            $("#tipoUsuario").val(0);
-            $("#telefono").val("");
-            $("#Correo").val("");
-            $("#fechaNacimiento").val("");
             $("#estado").val(1);
           },
         });
@@ -140,24 +89,15 @@ $(function () {
     });
   });
 
-  //SETEA EL CAMPO DE idEmpleado que esta oculto
-  $('#registroCliente').click(function () {
-    $('#idEmpleado').val(0);
+  //SETEA EL CAMPO DE idUnidad que esta oculto
+  $('#registrarUnidad').click(function () {
+    $('#idUnidad').val(0);
     $("#nombre").val("");
-    $("#apellido").val("");
-    $("#sexo").val(0);
-    $("#identificacion").val("");
-    $("#usuario").val("");
-    $("#clave").val("");
-    $("#tipoUsuario").val(0);
-    $("#telefono").val("");
-    $("#Correo").val("");
-    $("#fechaNacimiento").val("");
     $("#estado").val(1);
     console.log('click');
   });
 
-  //ELIMINAR EMPLEADO
+  //ELIMINAR UNIDAD
   $("#empleados").on("click", ".btn-eliminar", function () {
     const idEmpleado = $(this).attr("idEmpleado");
     console.log('idEmpleado: ', idEmpleado);
@@ -210,16 +150,16 @@ $(function () {
   $("#empleados").on("click", ".btn-editar", function () {
     console.log($(".form-control").val());
 
-    const idEmpleado = $(this).attr("idEmpleado");
-    console.log('idEmpleado: ', idEmpleado);
-    $('#idEmpleado').val(idEmpleado);
+    const idUnidad = $(this).attr("idUnidad");
+    console.log('idUnidad: ', idUnidad);
+    $('#idUnidad').val(idUnidad);
 
     const data = new FormData();
-    data.append("exec", 'getEmpleado');
-    data.append("idEmpleado", idEmpleado);
+    data.append("exec", 'getUnidad');
+    data.append("idUnidad", idUnidad);
 
     $.ajax({
-      url: "ajax/EmpleadoAjax.php",
+      url: "ajax/UnidadAjax.php",
       method: "POST",
       data: data,
       cache: false,
@@ -230,17 +170,17 @@ $(function () {
         console.log('editarRespuesta: ', respuesta);
 
 
-        $("#idEmpleado").val(respuesta["idEmpleado"]);
-        $("#nombre").val(respuesta["nombre"]);
-        $("#apellido").val(respuesta["apellido"]);
-        $("#sexo").val(Number(respuesta["idSexo"]));
-        $("#identificacion").val(respuesta["identificacion"]);
-        $("#usuario").val(respuesta["usuario"]);
-        $("#clave").val(respuesta["clave"]);
-        $("#tipoUsuario").val(Number(respuesta["idTipoUsuario"]));
-        $("#telefono").val(respuesta["telefono"]);
-        $("#Correo").val(respuesta["Correo"]);
-        $("#fechaNacimiento").val(respuesta["fechaNacimiento"]);
+        $("#idCategoria").val(respuesta["idUnidad"]);
+        $("#nombre").val(respuesta["unidad"]);
+        // $("#apellido").val(respuesta["apellido"]);
+        // $("#sexo").val(Number(respuesta["idSexo"]));
+        // $("#identificacion").val(respuesta["identificacion"]);
+        // $("#usuario").val(respuesta["usuario"]);
+        // $("#clave").val(respuesta["clave"]);
+        // $("#tipoUsuario").val(Number(respuesta["idTipoUsuario"]));
+        // $("#telefono").val(respuesta["telefono"]);
+        // $("#Correo").val(respuesta["Correo"]);
+        // $("#fechaNacimiento").val(respuesta["fechaNacimiento"]);
         $("#estado").val(respuesta["estado"]);
       },
     });

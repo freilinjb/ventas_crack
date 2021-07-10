@@ -1,104 +1,110 @@
 <?php
 
-require_once "../Controllers/employeeController.php";
-require_once "../Models/EmployeeModel.php";
-require_once "../Models/EmpleadoModel.php";
+require_once "../Controllers/ProvedoresController.php";
 
-class EmpleadoAjax
+require_once "../Models/ProvedoresModel.php";
+
+class ProvedorAjax
 {
-  public $idEmpleado;
-  public $idSexo;
-  public $idDepartamento;
-  public $datosEmpleado;
+  // public $idProvedor;
+  // public $idSexo;
 
-  public function listarEstadosCiviles()
-  {
+  public $provedor;
+  // public $idDepartamento;
+  // public $datosEmpleado;
 
-    $item = "idSexo";
-    $valor = $this->idSexo;
+  // public function listarEstadosCiviles()
+  // {
 
-    $respusta = EmployeeController::listarEstadoCiviles($item, $valor);
-    echo json_encode($respusta);
-  }
+  //   $item = "idSexo";
+  //   $valor = $this->idSexo;
 
-  public function listarPuestroTrabajo()
-  {
+  //   $respusta = EmployeeController::listarEstadoCiviles($item, $valor);
+  //   echo json_encode($respusta);
+  // }
 
-    $item = "idDepartamento";
-    $valor = $this->idDepartamento;
+  // public function listarPuestroTrabajo()
+  // {
 
-    $respusta = EmployeeController::listarPuestroTrabajo($item, $valor);
-    echo json_encode($respusta);
-  }
+  //   $item = "idDepartamento";
+  //   $valor = $this->idDepartamento;
 
-  public function registrarEmpleado()
+  //   $respusta = EmployeeController::listarPuestroTrabajo($item, $valor);
+  //   echo json_encode($respusta);
+  // }
+
+  public function registrarProvedor()
   {
 
     $datos = array(
       "nombre" => $_POST["nombre"],
-      "apellido" => $_POST["apellido"],
-      "sexo" => $_POST["idSexo"],
-      "identificacion" => $_POST["identificacion"],
-      "fechaNacimiento" => $_POST["fechaNacimiento"],
-      "usuario" => $_POST["usuario"],
-      "clave" => $_POST["clave"],
-      "tipoUsuario" => $_POST["tipoUsuario"],
-      "telefono" => $_POST["telefono"],
+      "RNC" => $_POST["RNC"],
       "correo" => $_POST["correo"],
+      "telefono" => $_POST["telefono"],
+      "provincia" => $_POST["provincia"],
+      "ciudad" => $_POST["ciudad"],
+      "direccion" => $_POST["direccion"],
+      "tipoUsuario" => $_POST["tipoUsuario"],
+      "Observacion" => $_POST["Observacion"],
+
       "estado" => $_POST["estado"],
+
+
+
+
     );
 
-    $respuesta  = EmpleadoModel::registrarEmpleado($datos);
+    $respuesta  = ProvedoresModel::registrarProvedor($datos);
 
     // print_r($respuesta);
     // echo "registrado";
     echo json_encode($respuesta);
   }
 
-  public function actualizandoEmpleado()
+  public function actualizandoProvedor()
   {
 
     $datos = array(
-      "idEmpleado" => $_POST["idEmpleado"],
+      "idProvedor" => $_POST["idProvedor"],
       "nombre" => $_POST["nombre"],
-      "apellido" => $_POST["apellido"],
-      "sexo" => $_POST["idSexo"],
-      "identificacion" => $_POST["identificacion"],
-      "fechaNacimiento" => $_POST["fechaNacimiento"],
-      "usuario" => $_POST["usuario"],
-      "clave" => $_POST["clave"],
-      "tipoUsuario" => $_POST["tipoUsuario"],
-      "telefono" => $_POST["telefono"],
+      "RNC" => $_POST["RNC"],
       "correo" => $_POST["correo"],
+      "telefono" => $_POST["telefono"],
+      "provincia" => $_POST["provincia"],
+      "ciudad" => $_POST["ciudad"],
+      "direccion" => $_POST["direccion"],
+      "tipoUsuario" => $_POST["tipoUsuario"],
+      "Observacion" => $_POST["Observacion"],
+
       "estado" => $_POST["estado"],
     );
 
-    $respuesta  = EmpleadoModel::registrarEmpleado($datos);
+    $respuesta  = ProvedoresModel::registrarProvedor($datos);
 
     echo json_encode($respuesta);
   }
 
-  public function getEmpleado()
+  public function getProveedores()
   {
-    $idEmpleado = $_POST['idEmpleado'];
-    $respuesta  = EmpleadoModel::getEmpleado($idEmpleado);
+    $idProvedor = $_POST['idProvedor'];
+    $respuesta  = ProvedoresModel::getProveedores($idProvedor);
 
     echo json_encode($respuesta);
   }
 
-  public function eliminarEmpleado()
-  {
-    if (preg_match('/^[0-9]+$/', $_POST['idEmpleado'])) {
-      $idEmpleado = $_POST['idEmpleado'];
-      // echo "idEmpleado; " . $idEmpleado;die;
-      $respuesta  = EmpleadoModel::eliminarEmpleado($idEmpleado);
+  // public function eliminarEmpleado()
+  // {
+  //   if (preg_match('/^[0-9]+$/', $_POST['idProvedor'])) {
+  //     $idProvedor = $_POST['idProvedor'];
+  //     // echo "idProvedor; " . $idProvedor;die;
+  //     $respuesta  = EmpleadoModel::eliminarEmpleado($idProvedor);
 
-      echo json_encode($respuesta);
-    } else {
-      $datos = array("msg" => "Solo se admiten numeros", "status" => 200);
-      echo json_encode($datos);
-    }
-  }
+  //     echo json_encode($respuesta);
+  //   } else {
+  //     $datos = array("msg" => "Solo se admiten numeros", "status" => 200);
+  //     echo json_encode($datos);
+  //   }
+  // }
 }
 
 
@@ -108,34 +114,34 @@ Comprobamos que el valor no venga vacío
 =============================================*/
 if (isset($_POST['exec']) && !empty($_POST['exec'])) {
   $funcion = $_POST['exec'];
-  $ejecutar = new EmpleadoAjax();
+  $ejecutar = new ProvedorAjax();
   //En función del parámetro que nos llegue ejecutamos una función u otra
   switch ($funcion) {
 
-    case 'registrarEmpleado':
-      $ejecutar->registrarEmpleado();
+    case 'registrarProvedor':
+      $ejecutar->registrarProvedor();
       // echo "hola mundo";
       break;
 
-    case 'registrarProveedor':
-      $ejecutar->registrarEmpleado();
-      // echo "hola mundo";
-      break;
+      // case 'registrarProvedor':
+      //   $ejecutar->registrarProvedor();
+      //   // echo "hola mundo";
+      //   break;
 
     case 'actualizandoEmpleado':
-      $ejecutar->actualizandoEmpleado();
+      $ejecutar->actualizandoProvedor();
       // echo "hola mundo";
       break;
 
-    case 'getEmpleado':
-      $ejecutar->getEmpleado();
+    case 'getProveedores':
+      $ejecutar->getProveedores();
       // echo "hola mundo";
       break;
 
-    case 'eliminarEmpleado':
-      $ejecutar->eliminarEmpleado();
-      // echo "hola mundo";
-      break;
+      // case 'eliminarEmpleado':
+      //   $ejecutar->eliminarEmpleado();
+      //   // echo "hola mundo";
+      //   break;
     case 'funcion2':
       $b->accion2();
       break;

@@ -1,3 +1,18 @@
+<?php
+// $empleado = EmpleadoController::getprovedor(null, null);
+// $sexo = EmpleadoController::getSexo(null, null);
+// $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
+
+$provedor = ProvedoresController::getProveedores();
+$provincia = ProvedoresController::getProvincia();
+$ciudad = ProvedoresController::getCiudad();
+
+
+// print_r($provedor);
+
+?>
+
+
 <section class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
@@ -30,12 +45,12 @@
           </div>
           <div class="card-body">
             <div class="">
-              <button class="btn btn-info mb-3" data-toggle="modal" data-target="#modalEmployeeRegister">
+              <button class="btn btn-info mb-3" data-toggle="modal" data-target="#modalProvedor">
                 <i class="fa fa-plus"></i>
                 Provedor
               </button>
             </div>
-            <table id="empleados" class="table table-bordered table-striped table-hover">
+            <table id="provedor" class="table table-bordered table-striped table-hover">
               <thead>
                 <tr>
                   <th>#</th>
@@ -48,10 +63,40 @@
                   <th>Direccion</th>
                   <th>Obsercacion</th>
                   <th>Estado</th>
+                  <th>Accion</th>
+
                 </tr>
               </thead>
               <tbody>
-
+                <?php
+                foreach ($provedor as $index => $value) {
+                  $estado = null;
+                  if ($value["estado"] == 'Activo') {
+                    $estado = "<span class='badge badge-primary'>" . $value["estado"] . "</span>";
+                  } else {
+                    $estado = "<span class='badge badge-danger'>" . $value["estado"] . "</span>";
+                  }
+                  echo '<tr>';
+                  echo '<td>' . ($index + 1) . '</td>';
+                  echo '<td>' . $value["nombre"] . '</td>';
+                  echo '<td>' . $value["RNC"] . '</td>';
+                  echo '<td>' . $value["correo"] . '</td>';
+                  echo '<td>' . $value["telefono"] . '</td>';
+                  echo '<td>' . $value["provincia"] . '</td>';
+                  echo '<td>' . $value["ciudad"] . '</td>';
+                  echo '<td>' . $value["direccion"] . '</td>';
+                  echo '<td>' . $value["observacion"] . '</td>';
+                  // echo '<td>' . $value["creado_por"] . '</td>';
+                  echo '<td>' . $estado  . '</td>';
+                  echo '<td>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalProvedor" idProvedor="' . $value["idProvedor"] . '">Editar</button>
+                                        <button type="button" class="btn btn-danger btn-eliminar"  idProvedor="' . $value["idProvedor"] . '">Eliminar</button>
+                                    </div>
+                                        </td>';
+                  echo '</tr>';
+                }
+                ?>
 
 
               </tbody>
@@ -65,10 +110,10 @@
 
 
 <!-- MODAL REGISTRAR EMPLEADO-->
-<div class="modal fade" id="modalEmployeeRegister" style="display: none; padding-right: 17px;" aria-modal="true">
+<div class="modal fade" id="modalProvedor" style="display: none; padding-right: 17px;" aria-modal="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form id="formEmployee" enctype="multipart/form-data">
+      <form id="formProvedor" enctype="multipart/form-data">
         <div class="modal-header bg-info">
           <h4 class="modal-title">Register Provedores</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -222,7 +267,7 @@
 <!-- END MODAL REGISTRAR EMPLEADO-->
 
 <!-- SCRIPT PERSONAL -->
-<script src="views/assets/js/empleado.js"></script>
+<script src="views/assets/js/provedor.js"></script>
 <!-- DataTables  & Plugins -->
 
 <link rel="stylesheet" href="views/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -255,15 +300,15 @@
 <!-- Page specific script -->
 <script>
   $(function() {
-    $("#empleados").DataTable({
+    $("#provedor").DataTable({
       "responsive": true,
       "lengthChange": true,
       "autoWidth": true,
       "info": true,
       "paging": true,
       "pageLength": 7,
-      // "ajax": "ajax/datatable-empleados.php"
+      // "ajax": "ajax/datatable-provedor.php"
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#empleados_wrapper  .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#provedor_wrapper  .col-md-6:eq(0)');
   });
 </script>

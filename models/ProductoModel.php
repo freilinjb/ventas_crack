@@ -78,24 +78,27 @@ class ProductoModel
     // } else {
     //   echo "no existe";
     // }
-    // print_r($_POST);die;
+    // echo "hola mundo;";
+    // die;
+    print_r($datos);
+    die;
     if (isset($datos["idProducto"]) && $datos["idProducto"] > 0) { /// NUEVO EMPLEADO
-      $respuesta = Conection::connect()->prepare("CALL addProducto (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-      $respuesta->bindParam("1", $datos["idProducto"], PDO::PARAM_INT);
-      $respuesta->bindParam("2", $datos["codigo"], PDO::PARAM_STR);
-      $respuesta->bindParam("3", $datos["nombre"], PDO::PARAM_STR);
-      $respuesta->bindParam("4", $datos["idCategoria"], PDO::PARAM_INT);
-      $respuesta->bindParam("5", $datos["idSubCategoria"], PDO::PARAM_STR);
-      $respuesta->bindParam("6", $datos["idMarca"], PDO::PARAM_STR);
-      $respuesta->bindParam("7", $datos["idUnidad"], PDO::PARAM_STR);
-      $respuesta->bindParam("8", $datos["descripcion"], PDO::PARAM_STR);
-      $respuesta->bindParam("9", $datos["stockIni"], PDO::PARAM_INT);
-      $respuesta->bindParam("10", $datos["stockMini"], PDO::PARAM_BOOL);
-      $respuesta->bindParam("11", $datos["reorden"], PDO::PARAM_STR);
-      $respuesta->bindParam("12", $datos["itbis"], PDO::PARAM_STR);
-      $respuesta->bindParam("13", $datos["precioCompra"], PDO::PARAM_STR);
-      $respuesta->bindParam("14", $datos["precioVenta"], PDO::PARAM_STR);
-      $respuesta->bindParam("15", $datos["estado"], PDO::PARAM_STR);
+      $respuesta = Conection::connect()->prepare("CALL addProducto (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+      // $respuesta->bindParam("1", $datos["idProducto"], PDO::PARAM_INT);
+      $respuesta->bindParam("1", $datos["codigo"], PDO::PARAM_STR);
+      $respuesta->bindParam("2", $datos["nombre"], PDO::PARAM_STR);
+      $respuesta->bindParam("3", $datos["categoria"], PDO::PARAM_INT);
+      $respuesta->bindParam("4", $datos["subcategoria"], PDO::PARAM_STR);
+      $respuesta->bindParam("5", $datos["marca"], PDO::PARAM_STR);
+      $respuesta->bindParam("6", $datos["unidad"], PDO::PARAM_STR);
+      $respuesta->bindParam("7", $datos["descripcion"], PDO::PARAM_STR);
+      $respuesta->bindParam("8", $datos["stockIni"], PDO::PARAM_INT);
+      $respuesta->bindParam("9", $datos["stockMini"], PDO::PARAM_BOOL);
+      $respuesta->bindParam("10", $datos["reorden"], PDO::PARAM_STR);
+      $respuesta->bindParam("11", $datos["itbis"], PDO::PARAM_STR);
+      $respuesta->bindParam("12", $datos["precioCompra"], PDO::PARAM_STR);
+      $respuesta->bindParam("13", $datos["precioVenta"], PDO::PARAM_STR);
+      $respuesta->bindParam("14", $datos["estado"], PDO::PARAM_STR);
 
 
 

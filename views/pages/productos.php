@@ -1,20 +1,28 @@
 <?php
-$empleado = EmpleadoController::getEmpleados(null, null);
-$sexo = EmpleadoController::getSexo(null, null);
-$tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
+// $empleado = EmpleadoController::getproducto(null, null);
+// $sexo = EmpleadoController::getSexo(null, null);
+// $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
+
+$producto = ProductoController::getProducto(null, null);
+$categoria = ProductoController::getCategoria(null, null);
+$subCategoria = ProductoController::getSubCategoria(null, null);
+$marca = ProductoController::getMarca(null, null);
+$unidad = ProductoController::getUnidad(null, null);
+
+
 ?>
 
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Adminiscación de Cliente</h1>
+                <h1>Adminiscación de Producto</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <!-- <li class="breadcrumb-item"><a href="#">Layout</a></li> -->
-                    <li class="breadcrumb-item active">Administración de Cliente</li>
+                    <li class="breadcrumb-item active">Administración de Producto</li>
                 </ol>
             </div>
         </div>
@@ -31,36 +39,42 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                     <div class="card-header">
                         <h3 class="card-title">
                             <i class="fas fa-edit"></i>
-                            Registro de Cliente
+                            Registro de Producto
                         </h3>
                         s
                     </div>
                     <div class="card-body">
                         <div class="">
-                            <button class="btn btn-info mb-3" data-toggle="modal" data-target="#modalEmployeeRegister" id="registroCliente">
-                                <strong> + </strong> Cliente
+                            <button class="btn btn-info mb-3" data-toggle="modal" data-target="#modalProducto" id="registroProducto">
+                                <strong> + </strong> Producto
                             </button>
                         </div>
-                        <table id="empleados" class="table table-bordered table-striped table-hover">
+                        <table id="producto" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
-
+                                    <th>Condigo</th>
                                     <th>Nombre</th>
-                                    <th>identificacion</th>
-                                    <th>Tipo Comprobante</th>
-                                    <th>Correo</th>
-                                    <th>Telefono</th>
-                                    <th>Direccion</th>
-                                    <th>Observacion</th>
+                                    <th>descripcion</th>
+                                    <th>Precio Compra</th>
+                                    <th>Precio Venta</th>
                                     <th>Estado</th>
-                                    <th>Acción</th>
+                                    <th>Acccion</th>
+
+
+                                    <!-- <th>Telefono</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th> -->
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($empleado as $index => $value) {
+                                // print_r($producto);
+                                // echo "hola mundo" . $producto[0]['nombrePro'];
+                                // die;
+                                foreach ($producto as $index => $value) {
                                     $estado = null;
+                                    // print_r($value);
                                     if ($value["estado"] == 'Activo') {
                                         $estado = "<span class='badge badge-primary'>" . $value["estado"] . "</span>";
                                     } else {
@@ -68,17 +82,19 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                                     }
                                     echo '<tr>';
                                     echo '<td>' . ($index + 1) . '</td>';
-                                    echo '<td>' . $value["user"] . '</td>';
-                                    echo '<td>' . $value["nombre"] . '</td>';
-                                    echo '<td>' . $value["apellido"] . '</td>';
-                                    echo '<td>' . $value["fechaNaci"] . '</td>';
-                                    echo '<td>' . $value["correo"] . '</td>';
-                                    echo '<td>' . $value["telefono"] . '</td>';
+                                    echo '<td>' . $value["codigoPro"] . '</td>';
+
+                                    echo '<td>' . $value["nombrePro"] . '</td>';
+                                    echo '<td>' . $value["descripcion"] . '</td>';
+                                    echo '<td>' . $value["precioCompra"] . '</td>';
+                                    echo '<td>' . $value["precioVenta"] . '</td>';
+                                    // echo '<td>' . $value["estado"] . '</td>';
+                                    // echo '<td>' . $value["telefono"] . '</td>';
                                     echo '<td>' . $estado  . '</td>';
                                     echo '<td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalEmployeeRegister" idEmpleado="' . $value["idEmpleado"] . '">Editar</button>
-                                        <button type="button" class="btn btn-danger btn-eliminar"  idEmpleado="' . $value["idEmpleado"] . '">Eliminar</button>
+                                        <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalProducto" idProducto="' . $value["idProducto"] . '">Editar</button>
+                                        <button type="button" class="btn btn-danger btn-eliminar"  idProducto="' . $value["idProducto"] . '">Eliminar</button>
                                     </div>
                                         </td>';
                                     echo '</tr>';
@@ -96,12 +112,12 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
 
 
 <!-- MODAL REGISTRAR EMPLEADO-->
-<div class="modal fade" id="modalEmployeeRegister" style="display: none; padding-right: 17px;" aria-modal="true">
+<div class="modal fade" id="modalProducto" style="display: none; padding-right: 17px;" aria-modal="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form id="formEmployee">
+            <form id="formProducto">
                 <div class="modal-header bg-info">
-                    <h4 class="modal-title">Register Cliente</h4>
+                    <h4 class="modal-title" od="tituloModal">Register Producto</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -110,9 +126,17 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                     <div class="card hovercard">
                         <div class="card-body">
                             <div class="row">
-                                <input type="hidden" name="idEmpleado" id="idEmpleado" value="0">
+                                <input type="hidden" name="idProducto" id="idProducto" value="0">
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <!-- Date dd/mm/yyyy -->
+
+                                    <div class="form-group">
+                                        <label>Codigo</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="codigo" id="codigo" value="crack2" placeholder="Ingrese el nombre" autocomplete="off">
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
                                     <div class="form-group">
                                         <label>Nombre</label>
                                         <div class="input-group">
@@ -122,102 +146,142 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                                     </div>
                                 </div>
                                 <div class="col-6-lg col-xl-6 col-sm-12">
-                                    <!-- Date dd/mm/yyyy -->
                                     <div class="form-group">
-                                        <label>Apellido</label>
+                                        <label>Categoria</label>
+                                        <select class="form-control" name="categoria" id="categoria">
+                                            <option value="0" disabled selected>Seleccione una opción</option>
+                                            <?php foreach ($categoria as $key) {
+                                                echo '<option value="' . $key['idCategoria'] . '">' . $key['categoria'] . '</option>';
+                                            }  ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <!-- <div class="col-6-lg col-xl-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>SubCategoria</label>
+                                        <select class="form-control" name="subCategoria" id="subCategoria">
+                                            <option value="0" disabled selected>Seleccione una opción</option>
+                                            <?php foreach ($subCategoria as $key) {
+                                                echo '<option value="' . $key['idSubCategoria'] . '">' . $key['subCategoria'] . '</option>';
+                                            }  ?>
+                                        </select>
+                                    </div>
+                                </div> -->
+
+
+
+                                <div class="col-6-lg col-xl-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Marca</label>
+                                        <select class="form-control" name="marca" id="marca">
+                                            <option value="0" disabled selected>Seleccione una opción</option>
+                                            <?php foreach ($marca as $key) {
+                                                echo '<option value="' . $key['idMarca'] . '">' . $key['marca'] . '</option>';
+                                            }  ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-6-lg col-xl-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Unidad</label>
+                                        <select class="form-control" name="unidad" id="unidad">
+                                            <option value="0" disabled selected>Seleccione una opción</option>
+                                            <?php foreach ($unidad as $key) {
+                                                echo '<option value="' . $key['idUnidad'] . '">' . $key['unidad'] . '</option>';
+                                            }  ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Descripcion</label>
+                                        <div class="input-group mb-3">
+                                            <textarea name="descripcion" id="descripcion" class="form-control" placeholder="Ingrese una descripcion" cols="30" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-6-lg col-xl-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Stock Inicial</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="apellido" id="apellido" value="crack2" placeholder="Ingrese el apellido" autocomplete="off">
+                                            <input type="text" class="form-control" name="stockIni" id="stockIni" value="crack2" placeholder="Ingrese el stockIni" autocomplete="off">
                                         </div>
                                         <!-- /.input group -->
                                     </div>
                                 </div>
+
+
+
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Sexo</label>
-                                        <select class="form-control" name="sexo" id="sexo">
-                                            <option value="0" disabled selected>Seleccione una opción</option>
-                                            <?php foreach ($sexo as $key) {
-                                                echo '<option value="' . $key['idSexo'] . '">' . $key['sexo'] . '</option>';
-                                            }  ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6-lg col-xl-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label>Identificacion</label>
+                                        <label>Stock Minimo</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="identificacion" id="identificacion" value="03105697175" placeholder="Ingrese el numero de ducumento" autocomplete="off">
+                                            <input type="text" class="form-control" name="stockMini" id="stockMini" value="crack2" placeholder="Ingrese el stockMini" autocomplete="off">
                                         </div>
+                                        <!-- /.input group -->
                                     </div>
                                 </div>
+
+
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Usuario</label>
+                                        <label>Reorden</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="reorden" id="reorden" value="crack2" placeholder="Ingrese el reorden" autocomplete="off">
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+                                </div>
+
+                                <div class="col-6-lg col-xl-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>ITBIS</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="itbis" id="itbis" value="crack2" placeholder="Ingrese el itbis" autocomplete="off">
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+                                </div>
+
+
+                                <div class="col-6-lg col-xl-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Precio Compra</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                <span class="input-group-text"><i class="fas fa-money"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="usuario" id="usuario" autocomplete="off" value="frack" placeholder="Ingrese el nobre de usuario">
+                                            <input type="text" class="form-control" name="precioCompra" id="precioCompra" autocomplete="off" value="1423" placeholder="Ingrese Precio Compra">
                                         </div>
                                     </div>
                                 </div>
+
+
+
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Contraseña</label>
+                                        <label>Precio Venta</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="clave" id="clave" autocomplete="off" value="1423" placeholder="Ingrese la contraseña">
+                                            <input type="text" class="form-control" name="precioVenta" id="precioVenta" autocomplete="off" value="1423" placeholder="Ingrese Precio Venta">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6-lg col-xl-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label for="tipoUsuario">Tipo de usuario</label>
-                                        <select class="form-control" name="tipoUsuario" id="tipoUsuario" required>
-                                            <option value="0" disabled selected>Seleccione una opción</option>
-                                            <?php foreach ($tipoUsuario as $key) {
-                                                echo '<option value="' . $key['idTipo'] . '">' . $key['descriccion'] . '</option>';
-                                            }  ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6-lg col-xl-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label>Telefono</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" name="telefono" id="telefono" value="849-565-2312" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6-lg col-xl-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label>Correo</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                                            </div>
-                                            <input type="email" class="form-control" name="correo" id="correo" value="fras@fsd.com" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6-lg col-xl-6 col-sm-12">
-                                    <!-- Date dd/mm/yyyy -->
-                                    <div class="form-group">
-                                        <label>Fecha de nacimiento:</label>
 
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                            </div>
-                                            <input type="date" class="form-control" name="fechaNacimiento" id="fechaNacimiento" value="">
-                                        </div>
-                                    </div>
-                                </div>
+
+
+
+
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
                                         <label for="estado">Estado</label>
@@ -245,7 +309,7 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
 <!-- END MODAL REGISTRAR EMPLEADO-->
 
 <!-- SCRIPT PERSONAL -->
-<script src="views/assets/js/empleado.js"></script>
+<script src="views/assets/js/producto.js"></script>
 <!-- DataTables  & Plugins -->
 
 <link rel="stylesheet" href="views/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -278,7 +342,7 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
 <!-- Page specific script -->
 <script>
     $(function() {
-        $("#empleados").DataTable({
+        $("#producto").DataTable({
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
@@ -286,6 +350,6 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
             "paging": true,
             "pageLength": 7,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-        }).buttons().container().appendTo('#empleados_wrapper  .col-md-6:eq(0)');
+        }).buttons().container().appendTo('#producto_wrapper  .col-md-6:eq(0)');
     });
 </script>

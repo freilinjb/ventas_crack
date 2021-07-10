@@ -19,7 +19,16 @@ require_once "Controllers/EmpleadoController.php";
 require_once "Controllers/ProductoController.php";
 require_once "Controllers/CategoriaController.php";
 
-// require_once "Controllers/ProvedoresController.php";
+
+require_once "Controllers/UnidadController.php";
+
+require_once "Controllers/ProductoController.php";
+
+require_once "Controllers/ClienteController.php";
+
+require_once "Controllers/ProvedoresController.php";
+
+
 
 
 /**
@@ -39,8 +48,18 @@ require_once "Models/EmpleadoModel.php";
 
 require_once "Models/ProductoModel.php";
 require_once "Models/CategoriaModel.php";
+
+
+require_once "Models/UnidadModel.php";
+
+require_once "Models/ProductoModel.php";
+
+
+require_once "Models/ClienteModel.php";
+
+
 //PROVEEDOR
-// require_once "Models/ProvedoresModel";
+require_once "Models/ProvedoresModel.php";
 
 $template = new TemplateController();
 $template->template();
