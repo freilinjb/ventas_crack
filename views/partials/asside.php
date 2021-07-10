@@ -10,6 +10,7 @@
             <div class="sidebar">
 
 
+
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
@@ -47,6 +48,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="/ventas_crack/index.php?route=comprobante" <?php if ($_GET['route'] == "comprobante") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Admin. Comprobante</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="/ventas_crack/index.php?route=provedores" <?php if ($_GET['route'] == "provedores") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Admin. Provedores</p>
@@ -73,13 +80,13 @@
 
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="/ventas_crack/index.php?route=adminEmpleado" <?php if ($_GET['route'] == "adminEmpleado") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
+                                            <a href="/ventas_crack/index.php?route=productos" <?php if ($_GET['route'] == "adminEmpleado") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p> Producto</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="/ventas_crack/index.php?route=adminUnidad" <?php if ($_GET['route'] == "clientes") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
+                                            <a href="/ventas_crack/index.php?route=unidad" <?php if ($_GET['route'] == "clientes") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p> Unidad</p>
                                             </a>

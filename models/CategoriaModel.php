@@ -4,8 +4,7 @@ require_once "Conection.php";
 
 class CategoriaModel
 {
-  static public function getCategoria($idCategoria)
-  {
+  static public function getCategoria($idCategoria)a
     $respuesta = null;
     if ($idCategoria == null) {
       $respuesta = Conection::connect()->prepare("
