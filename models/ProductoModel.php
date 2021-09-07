@@ -5,6 +5,13 @@ require_once "Conection.php";
 class ProductoModel
 {
 
+
+
+
+
+
+
+
   static public function getProducto()
   {
     $respuesta = Conection::connect()->prepare("
@@ -80,47 +87,51 @@ class ProductoModel
     // }
     // echo "hola mundo;";
     // die;
-    print_r($datos);
-    die;
+
     if (isset($datos["idProducto"]) && $datos["idProducto"] > 0) { /// NUEVO EMPLEADO
-      $respuesta = Conection::connect()->prepare("CALL addProducto (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+      echo "hola mundo registrar";
+      // print_r($datos);
+      // die;
+      $respuesta = Conection::connect()->prepare("CALL addProducto (NULL,?,?,?,NULL,?,?,?,?,?,?,?,?,?,?)");
       // $respuesta->bindParam("1", $datos["idProducto"], PDO::PARAM_INT);
       $respuesta->bindParam("1", $datos["codigo"], PDO::PARAM_STR);
       $respuesta->bindParam("2", $datos["nombre"], PDO::PARAM_STR);
       $respuesta->bindParam("3", $datos["categoria"], PDO::PARAM_INT);
-      $respuesta->bindParam("4", $datos["subcategoria"], PDO::PARAM_STR);
-      $respuesta->bindParam("5", $datos["marca"], PDO::PARAM_STR);
-      $respuesta->bindParam("6", $datos["unidad"], PDO::PARAM_STR);
-      $respuesta->bindParam("7", $datos["descripcion"], PDO::PARAM_STR);
-      $respuesta->bindParam("8", $datos["stockIni"], PDO::PARAM_INT);
-      $respuesta->bindParam("9", $datos["stockMini"], PDO::PARAM_BOOL);
-      $respuesta->bindParam("10", $datos["reorden"], PDO::PARAM_STR);
-      $respuesta->bindParam("11", $datos["itbis"], PDO::PARAM_STR);
-      $respuesta->bindParam("12", $datos["precioCompra"], PDO::PARAM_STR);
-      $respuesta->bindParam("13", $datos["precioVenta"], PDO::PARAM_STR);
+      $respuesta->bindParam("4", $datos["marca"], PDO::PARAM_INT);
+      $respuesta->bindParam("5", $datos["unidad"], PDO::PARAM_INT);
+      $respuesta->bindParam("6", $datos["descripcion"], PDO::PARAM_STR);
+      $respuesta->bindParam("7", $datos["stockIni"], PDO::PARAM_INT);
+      $respuesta->bindParam("8", $datos["stockMini"], PDO::PARAM_BOOL);
+      $respuesta->bindParam("9", $datos["reorden"], PDO::PARAM_STR);
+      $respuesta->bindParam("10", $datos["itbis"], PDO::PARAM_STR);
+      $respuesta->bindParam("11", $datos["precioCompra"], PDO::PARAM_STR);
+      $respuesta->bindParam("12", $datos["precioVenta"], PDO::PARAM_STR);
+      $respuesta->bindParam("13", $datos["creado_por"], PDO::PARAM_INT);
       $respuesta->bindParam("14", $datos["estado"], PDO::PARAM_STR);
-
-
 
 
       $respuesta->execute();
       return $respuesta->fetch();
     } else { /// EDITAR EMPLEADO
-      $respuesta = Conection::connect()->prepare("CALL addProducto (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+      // echo "hola";
+      // print_r($datos);
+      // die;
+      $respuesta = Conection::connect()->prepare("CALL addProducto (NULL,?,?,?,NULL,?,?,?,?,?,?,?,?,?,?,?)");
+      // $respuesta->bindParam("1", $datos["idProducto"], PDO::PARAM_INT);
       $respuesta->bindParam("1", $datos["codigo"], PDO::PARAM_STR);
       $respuesta->bindParam("2", $datos["nombre"], PDO::PARAM_STR);
-      $respuesta->bindParam("3", $datos["idCategoria"], PDO::PARAM_INT);
-      $respuesta->bindParam("4", $datos["idSubCategoria"], PDO::PARAM_STR);
-      $respuesta->bindParam("5", $datos["idMarca"], PDO::PARAM_STR);
-      $respuesta->bindParam("6", $datos["idUnidad"], PDO::PARAM_STR);
-      $respuesta->bindParam("7", $datos["descripcion"], PDO::PARAM_STR);
-      $respuesta->bindParam("8", $datos["stockIni"], PDO::PARAM_INT);
-      $respuesta->bindParam("9", $datos["stockMini"], PDO::PARAM_BOOL);
-      $respuesta->bindParam("10", $datos["reorden"], PDO::PARAM_STR);
-      $respuesta->bindParam("11", $datos["itbis"], PDO::PARAM_STR);
-      $respuesta->bindParam("12", $datos["precioCompra"], PDO::PARAM_STR);
-      $respuesta->bindParam("13", $datos["precioVenta"], PDO::PARAM_STR);
-      $respuesta->bindParam("14", $datos["estado"], PDO::PARAM_STR);
+      $respuesta->bindParam("3", $datos["categoria"], PDO::PARAM_INT);
+      $respuesta->bindParam("4", $datos["marca"], PDO::PARAM_INT);
+      $respuesta->bindParam("5", $datos["unidad"], PDO::PARAM_INT);
+      $respuesta->bindParam("6", $datos["descripcion"], PDO::PARAM_STR);
+      $respuesta->bindParam("7", $datos["stockIni"], PDO::PARAM_INT);
+      $respuesta->bindParam("8", $datos["stockMini"], PDO::PARAM_INT);
+      $respuesta->bindParam("9", $datos["reorden"], PDO::PARAM_INT);
+      $respuesta->bindParam("10", $datos["itbis"], PDO::PARAM_INT);
+      $respuesta->bindParam("11", $datos["precioCompra"], PDO::PARAM_INT);
+      $respuesta->bindParam("12", $datos["precioVenta"], PDO::PARAM_INT);
+      $respuesta->bindParam("13", $datos["creado_por"], PDO::PARAM_INT);
+      $respuesta->bindParam("14", $datos["estado"], PDO::PARAM_INT);
       $respuesta->execute();
       return $respuesta->fetch();
     }

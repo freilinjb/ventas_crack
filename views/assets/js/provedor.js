@@ -23,12 +23,12 @@ $(function () {
       telefono: {
         required: true,
       },
-      provincia: {
-        required: true,
-      },
-      ciudad: {
-        required: true,
-      },
+      // provincia: {
+      //   required: true,
+      // },
+      // ciudad: {
+      //   required: true,
+      // },
       direccion: {
         required: true,
       },
@@ -80,12 +80,14 @@ $(function () {
       // dato.append("exec", 'registrarProvedor');
       dato.append("nombre", $("#nombre").val());
       dato.append("RNC", $("#RNC").val());
-      dato.appendRNC("correo", $("#correo").val());
+      dato.append("correo", $("#correo").val());
       dato.append("telefono", $("#telefono").val());
       dato.append("provincia", $("#provincia").val());
       dato.append("ciudad", $("#ciudad").val());
       dato.append("direccion", $("#direccion").val());
       dato.append("Observacion", $("#Observacion").val());
+      dato.append("creado_por", $("#creado_por").val());
+
       dato.append("estado", $("#estado").val());
 
       console.log('daara: ', dato);
@@ -121,7 +123,9 @@ $(function () {
           $("#ciudad").val("");
           $("#direccion").val("");
           $("#Observacion").val("");
+          $("#creado_por").val();
           $("#estado").val(1);
+
         },
       });
     },
@@ -139,11 +143,12 @@ $('#registroProvedor').click(function () {
   $("#ciudad").val("");
   $("#direccion").val("");
   $("#Observacion").val("");
+  $("#creado_por").val();
   $("#estado").val(1);
   console.log('click');
 });
 
-//ELIMINAR EMPLEADO
+//ELIMINAR PROVEDOR
 $("#provedor").on("click", ".btn-eliminar", function () {
   const idProvedor = $(this).attr("idProvedor");
   console.log('idProvedor: ', idProvedor);
@@ -226,6 +231,8 @@ $("#provedor").on("click", ".btn-editar", function () {
 
       $("#direccion").val(respuesta["direccion"]);
       $("#Observacion").val(respuesta["Observacion"]);
+      $("#creado_por").val(respuesta["creado_por"]);
+
       $("#estado").val(respuesta["estado"]);
 
 

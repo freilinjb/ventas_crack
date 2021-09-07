@@ -206,3 +206,22 @@ if (isset($_POST['exec']) && !empty($_POST['exec'])) {
             break;
     }
 }
+
+
+  // public function getProvincia()
+  // {
+
+  //     $tabla = "provincia";
+
+  //     $respuesta = ProvedoresModel::getData($tabla, null, null);
+  //     echo  json_encode($respuesta);
+  // }
+
+  // public function getUnidad()
+  // {
+
+  //     $tabla = "unidad";
+
+  //     $respuesta = ProvedoresModel::getData($tabla, null, null);
+  //     echo  json_encode($respuesta);
+  // }

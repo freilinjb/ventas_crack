@@ -7,6 +7,7 @@ class EmpleadoAjax
     public $idEmpleado;
     public $idSexo;
     public $idDepartamento;
+    public $tipoUsuario;
     public $datosEmpleado;
 
     public function registrarEmpleado()
@@ -15,7 +16,7 @@ class EmpleadoAjax
         $datos = array(
             "nombre" => $_POST["nombre"],
             "apellido" => $_POST["apellido"],
-            "sexo" => $_POST["idSexo"],
+            "idSexo" => $_POST["idSexo"],
             "identificacion" => $_POST["identificacion"],
             "fechaNacimiento" => $_POST["fechaNacimiento"],
             "usuario" => $_POST["usuario"],
@@ -29,7 +30,7 @@ class EmpleadoAjax
         $respuesta  = EmpleadoModel::registrarEmpleado($datos);
 
         // print_r($respuesta);
-        // echo "registrado";
+        // die;
         echo json_encode($respuesta);
     }
 
@@ -40,7 +41,7 @@ class EmpleadoAjax
             "idEmpleado" => $_POST["idEmpleado"],
             "nombre" => $_POST["nombre"],
             "apellido" => $_POST["apellido"],
-            "sexo" => $_POST["idSexo"],
+            "sexo" => $_POST["sexo"],
             "identificacion" => $_POST["identificacion"],
             "fechaNacimiento" => $_POST["fechaNacimiento"],
             "usuario" => $_POST["usuario"],

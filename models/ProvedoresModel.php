@@ -1,14 +1,46 @@
 <?php
 
 require_once "Conection.php";
+session_start();
 
 class ProvedoresModel
 {
 
+  static public function mdlIngresarProvedor($datos)
+  {
+    // print_r($datos);
+    // die;
+
+    $respuesta = Conection::connect()->prepare("CALL addProveedor (NULL,?,?,?,?,?,?,?,?,?,?)");
+
+    $respuesta->bindParam("1", $datos["nombre"], PDO::PARAM_STR);
+    $respuesta->bindParam("2", $datos["RNC"], PDO::PARAM_STR);
+    $respuesta->bindParam("3", $datos["correo"], PDO::PARAM_STR);
+    $respuesta->bindParam("4", $datos["telefono"], PDO::PARAM_STR);
+    $respuesta->bindParam("5", $datos["idProvincia"], PDO::PARAM_INT);
+    $respuesta->bindParam("6", $datos["idCiudad"], PDO::PARAM_INT);
+    $respuesta->bindParam("7", $datos["direccion"], PDO::PARAM_STR);
+    $respuesta->bindParam("8", $datos["observacion"], PDO::PARAM_STR);
+    $respuesta->bindParam("9", $_SESSION['idUser'], PDO::PARAM_INT);
+    $respuesta->bindParam("10", $datos["estado"], PDO::PARAM_STR);
+
+    if ($respuesta->execute()) {
+
+      return "ok";
+    } else {
+      return "error";
+    }
+  }
+
+
+
+
+
 
   static public function getProveedores()
   {
-    // die;
+
+
     $respuesta = Conection::connect()->prepare("
     SELECT 
     p.idProveedor,
@@ -59,39 +91,42 @@ class ProvedoresModel
   static public function registrarProvedor($datos)
   {
 
-
+    // print_r($datos);
+    // die;
 
 
 
     if (isset($datos["idProvedor"]) && $datos["idProvedor"] > 0) { /// NUEVO provedor
-      $respuesta = Conection::connect()->prepare("CALL addProveedor (?,?,?,?,?,?,?,?,?,?)");
-      $respuesta->bindParam("1", $datos["idProvedor"], PDO::PARAM_INT);
-      $respuesta->bindParam("2", $datos["nombre"], PDO::PARAM_STR);
-      $respuesta->bindParam("3", $datos["RNC"], PDO::PARAM_STR);
-      $respuesta->bindParam("4", $datos["correo"], PDO::PARAM_STR);
-      $respuesta->bindParam("5", $datos["telefono"], PDO::PARAM_STR);
-      $respuesta->bindParam("6", $datos["provincia"], PDO::PARAM_STR);
-      $respuesta->bindParam("7", $datos["ciudad"], PDO::PARAM_STR);
-      $respuesta->bindParam("8", $datos["direccion"], PDO::PARAM_STR);
-      $respuesta->bindParam("9", $datos["observacion"], PDO::PARAM_STR);
-      // $respuesta->bindParam("10", $datos["creador_por"], PDO::PARAM_BOOL);
-      $respuesta->bindParam("11", $datos["estado"], PDO::PARAM_STR);
+      $respuesta = Conection::connect()->prepare("CALL addProveedor (NULL,?,?,?,?,?,?,?,?,?,?)");
+
+      $respuesta->bindParam("1", $datos["nombre"], PDO::PARAM_STR);
+      $respuesta->bindParam("2", $datos["RNC"], PDO::PARAM_STR);
+      $respuesta->bindParam("3", $datos["correo"], PDO::PARAM_STR);
+      $respuesta->bindParam("4", $datos["telefono"], PDO::PARAM_INT);
+      $respuesta->bindParam("5", $datos["provincia"], PDO::PARAM_INT);
+      $respuesta->bindParam("6", $datos["ciudad"], PDO::PARAM_INT);
+      $respuesta->bindParam("7", $datos["direccion"], PDO::PARAM_STR);
+      $respuesta->bindParam("8", $datos["observacion"], PDO::PARAM_STR);
+      $respuesta->bindParam("9", $_SESSION['idUser'], PDO::PARAM_INT);
+      $respuesta->bindParam("10", $datos["estado"], PDO::PARAM_STR);
 
 
       $respuesta->execute();
       return $respuesta->fetch();
     } else { /// EDITAR provedor
+      // print_r($datos);
+      // die;
       $respuesta = Conection::connect()->prepare("CALL addProveedor (NULL,?,?,?,?,?,?,?,?,?,?)");
-      $respuesta->bindParam("2", $datos["nombre"], PDO::PARAM_STR);
-      $respuesta->bindParam("3", $datos["RNC"], PDO::PARAM_STR);
-      $respuesta->bindParam("4", $datos["correo"], PDO::PARAM_STR);
-      $respuesta->bindParam("5", $datos["telefono"], PDO::PARAM_STR);
-      $respuesta->bindParam("6", $datos["provincia"], PDO::PARAM_STR);
-      $respuesta->bindParam("7", $datos["ciudad"], PDO::PARAM_STR);
-      $respuesta->bindParam("8", $datos["direccion"], PDO::PARAM_STR);
-      $respuesta->bindParam("9", $datos["observacion"], PDO::PARAM_STR);
-      $respuesta->bindParam("10", $datos["creador_por"], PDO::PARAM_BOOL);
-      $respuesta->bindParam("11", $datos["estado"], PDO::PARAM_STR);
+      $respuesta->bindParam("1", $datos["nombre"], PDO::PARAM_STR);
+      $respuesta->bindParam("2", $datos["RNC"], PDO::PARAM_STR);
+      $respuesta->bindParam("3", $datos["correo"], PDO::PARAM_STR);
+      $respuesta->bindParam("4", $datos["telefono"], PDO::PARAM_INT);
+      $respuesta->bindParam("5", $datos["provincia"], PDO::PARAM_INT);
+      $respuesta->bindParam("6", $datos["ciudad"], PDO::PARAM_INT);
+      $respuesta->bindParam("7", $datos["direccion"], PDO::PARAM_STR);
+      $respuesta->bindParam("8", $datos["observacion"], PDO::PARAM_STR);
+      $respuesta->bindParam("9", $_SESSION['idUser'], PDO::PARAM_INT);
+      $respuesta->bindParam("10", $datos["estado"], PDO::PARAM_STR);
 
       $respuesta->execute();
       return $respuesta->fetch();

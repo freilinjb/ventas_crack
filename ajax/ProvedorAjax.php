@@ -10,42 +10,26 @@ class ProvedorAjax
   // public $idSexo;
 
   public $provedor;
+  public $provincia;
+  public $ciudad;
   // public $idDepartamento;
   // public $datosEmpleado;
 
-  // public function listarEstadosCiviles()
-  // {
-
-  //   $item = "idSexo";
-  //   $valor = $this->idSexo;
-
-  //   $respusta = EmployeeController::listarEstadoCiviles($item, $valor);
-  //   echo json_encode($respusta);
-  // }
-
-  // public function listarPuestroTrabajo()
-  // {
-
-  //   $item = "idDepartamento";
-  //   $valor = $this->idDepartamento;
-
-  //   $respusta = EmployeeController::listarPuestroTrabajo($item, $valor);
-  //   echo json_encode($respusta);
-  // }
 
   public function registrarProvedor()
   {
 
     $datos = array(
       "nombre" => $_POST["nombre"],
+      "creado_por" => 1,
       "RNC" => $_POST["RNC"],
       "correo" => $_POST["correo"],
       "telefono" => $_POST["telefono"],
-      "provincia" => $_POST["provincia"],
-      "ciudad" => $_POST["ciudad"],
+      "provincia" => $_POST["idProvincia"],
+      "ciudad" => $_POST["idCiudad"],
       "direccion" => $_POST["direccion"],
       "tipoUsuario" => $_POST["tipoUsuario"],
-      "Observacion" => $_POST["Observacion"],
+      "observacion" => $_POST["observacion"],
 
       "estado" => $_POST["estado"],
 
@@ -66,6 +50,7 @@ class ProvedorAjax
 
     $datos = array(
       "idProvedor" => $_POST["idProvedor"],
+      "creado_por" => 1,
       "nombre" => $_POST["nombre"],
       "RNC" => $_POST["RNC"],
       "correo" => $_POST["correo"],
@@ -74,7 +59,7 @@ class ProvedorAjax
       "ciudad" => $_POST["ciudad"],
       "direccion" => $_POST["direccion"],
       "tipoUsuario" => $_POST["tipoUsuario"],
-      "Observacion" => $_POST["Observacion"],
+      "observacion" => $_POST["observacion"],
 
       "estado" => $_POST["estado"],
     );
@@ -92,20 +77,27 @@ class ProvedorAjax
     echo json_encode($respuesta);
   }
 
-  // public function eliminarEmpleado()
-  // {
-  //   if (preg_match('/^[0-9]+$/', $_POST['idProvedor'])) {
-  //     $idProvedor = $_POST['idProvedor'];
-  //     // echo "idProvedor; " . $idProvedor;die;
-  //     $respuesta  = EmpleadoModel::eliminarEmpleado($idProvedor);
+  public function eliminarEmpleado()
+  {
+    if (preg_match('/^[0-9]+$/', $_POST['idProvedor'])) {
+      $idProvedor = $_POST['idProvedor'];
+      // echo "idProvedor; " . $idProvedor;die;
+      $respuesta  = EmpleadoModel::eliminarEmpleado($idProvedor);
 
-  //     echo json_encode($respuesta);
-  //   } else {
-  //     $datos = array("msg" => "Solo se admiten numeros", "status" => 200);
-  //     echo json_encode($datos);
-  //   }
-  // }
+      echo json_encode($respuesta);
+    } else {
+      $datos = array("msg" => "Solo se admiten numeros", "status" => 200);
+      echo json_encode($datos);
+    }
+  }
 }
+
+
+
+
+
+
+
 
 
 
@@ -142,8 +134,8 @@ if (isset($_POST['exec']) && !empty($_POST['exec'])) {
       //   $ejecutar->eliminarEmpleado();
       //   // echo "hola mundo";
       //   break;
-    case 'funcion2':
-      $b->accion2();
-      break;
+      // case 'funcion2':
+      //   $b->accion2();
+      //   break;
   }
 }

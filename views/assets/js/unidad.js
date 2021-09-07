@@ -172,15 +172,6 @@ $(function () {
 
         $("#idCategoria").val(respuesta["idUnidad"]);
         $("#nombre").val(respuesta["unidad"]);
-        // $("#apellido").val(respuesta["apellido"]);
-        // $("#sexo").val(Number(respuesta["idSexo"]));
-        // $("#identificacion").val(respuesta["identificacion"]);
-        // $("#usuario").val(respuesta["usuario"]);
-        // $("#clave").val(respuesta["clave"]);
-        // $("#tipoUsuario").val(Number(respuesta["idTipoUsuario"]));
-        // $("#telefono").val(respuesta["telefono"]);
-        // $("#Correo").val(respuesta["Correo"]);
-        // $("#fechaNacimiento").val(respuesta["fechaNacimiento"]);
         $("#estado").val(respuesta["estado"]);
       },
     });

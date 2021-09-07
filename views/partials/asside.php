@@ -16,11 +16,9 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="home" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-                                </p>
+                            <a href="/ventas_crack/index.php?route=escritorio" <?php if ($_GET['route'] == "escritorio") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ESCRITORIO</p>
                             </a>
                         </li>
 
@@ -127,7 +125,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
-                                    Admin Pedidos
+                                    Admin Compra
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -157,10 +155,22 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tree"></i>
                                 <p>
-                                    Admin Compras
+                                    Admin Ventas
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
+
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/ventas_crack/index.php?route=ventas" <?php if ($_GET['route'] == "ventas") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Venta</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+
+
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="/ventas_crack/index.php?route=adminCompra" <?php if ($_GET['route'] == "adminCompra") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>

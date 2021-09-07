@@ -113,7 +113,7 @@ $ciudad = ProvedoresController::getCiudad();
 <div class="modal fade" id="modalProvedor" style="display: none; padding-right: 17px;" aria-modal="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form id="formProvedor" enctype="multipart/form-data">
+      <form id="formProvedor" enctype="multipart/form-data" method="POST">
         <div class="modal-header bg-info">
           <h4 class="modal-title">Register Provedores</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -130,7 +130,7 @@ $ciudad = ProvedoresController::getCiudad();
                   <div class="form-group">
                     <label>Nombre</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el nombre" autocomplete="off">
+                      <input type="text" class="form-control" name="nombre" value="OmegaTech" id="nombre" placeholder="Ingrese el nombre" autocomplete="off">
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -140,7 +140,7 @@ $ciudad = ProvedoresController::getCiudad();
                   <div class="form-group">
                     <label>RNC</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" name="RNC" id="RNC" placeholder="Ingrese el RNC" autocomplete="off">
+                      <input type="text" class="form-control" name="RNC" value="12312331" id="RNC" placeholder="Ingrese el RNC" autocomplete="off">
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -153,7 +153,7 @@ $ciudad = ProvedoresController::getCiudad();
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                       </div>
-                      <input type="email" class="form-control" name="correo" id="correo" autocomplete="off">
+                      <input type="email" class="form-control" name="correo" value="safsa@sdfs.com" id="correo" autocomplete="off">
                     </div>
                   </div>
                 </div>
@@ -167,7 +167,7 @@ $ciudad = ProvedoresController::getCiudad();
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                       </div>
-                      <input type="text" class="form-control" name="telefono" id="telefono" autocomplete="off">
+                      <input type="text" class="form-control" value="654654646" name="telefono" id="telefono" autocomplete="off">
                     </div>
                   </div>
                 </div>
@@ -204,7 +204,7 @@ $ciudad = ProvedoresController::getCiudad();
                   <div class="form-group">
                     <label>Direccion</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Ingrese la Direccion" autocomplete="off">
+                      <input type="text" class="form-control" name="direccion" id="direccion" value="Muchs coass de IT" placeholder="Ingrese la Direccion" autocomplete="off">
                     </div>
                     <!-- /.input group -->
                   </div>
@@ -212,9 +212,9 @@ $ciudad = ProvedoresController::getCiudad();
 
                 <div class="col-sm-12">
                   <div class="form-group">
-                    <label>Observacion</label>
+                    <label>observacion</label>
                     <div class="input-group mb-3">
-                      <textarea name="observacion" id="observacion" class="form-control" placeholder="Ingrese una Observacion" cols="30" rows="2"></textarea>
+                      <textarea name="observacion" id="observacion" class="form-control" value="es responsable con tu pedidos" placeholder="Ingrese una Observacion" cols="30" rows="2"></textarea>
                     </div>
                   </div>
                 </div>
@@ -252,19 +252,21 @@ $ciudad = ProvedoresController::getCiudad();
             <button type="submit" class="btn btn-info">Save changes</button>
           </div>
       </form>
+
+
     </div>
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
 </div>
 
-<!-- END MODAL REGISTRAR EMPLEADO-->
+<!-- END MODAL REGISTRAR Provedor-->
 
 </div>
 <!-- /.modal-dialog -->
 </div>
 
-<!-- END MODAL REGISTRAR EMPLEADO-->
+<!-- END MODAL REGISTRAR Provedor-->
 
 <!-- SCRIPT PERSONAL -->
 <script src="views/assets/js/provedor.js"></script>

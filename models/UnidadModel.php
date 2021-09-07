@@ -33,13 +33,6 @@ class UnidadModel
   static public function registrarUnidad($datos)
   {
 
-    // if(isset($datos["idEmpleado"]) && $datos["idEmpleado"] > 0) {
-    //   echo "existe";
-    // } else {
-    //   echo "no existe";
-    // }
-    //   echo $_SESSION["nombre"];
-    // print_r($datos);
 
     if (isset($datos["idUnidad"]) && $datos["idUnidad"] > 0) { /// NUEVO UNIDAD
       $respuesta = Conection::connect()->prepare("UPDATE unidad un SET un.descripcion = ?, un.estado = ? WHERE un.idUnidad = ?");

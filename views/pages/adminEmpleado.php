@@ -48,6 +48,10 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                                     <th>Usuario</th>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
+                                    <th>Sexo</th>
+                                    <th>Identificacion</th>
+
+                                    <th>Tipo Usuario</th>
                                     <th>Fecha de Nacimiento</th>
                                     <th>correo</th>
                                     <th>Telefono</th>
@@ -69,14 +73,19 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                                     echo '<td>' . $value["user"] . '</td>';
                                     echo '<td>' . $value["nombre"] . '</td>';
                                     echo '<td>' . $value["apellido"] . '</td>';
+                                    echo '<td>' . $value["sexo"] . '</td>';
+                                    echo '<td>' . $value["identificacion"] . '</td>';
+
+                                    echo '<td>' . $value["tipoUsuario"] . '</td>';
+
                                     echo '<td>' . $value["fechaNaci"] . '</td>';
                                     echo '<td>' . $value["correo"] . '</td>';
                                     echo '<td>' . $value["telefono"] . '</td>';
                                     echo '<td>' . $estado  . '</td>';
                                     echo '<td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalEmployeeRegister" idEmpleado="' . $value["idEmpleado"] . '">Editar</button>
-                                        <button type="button" class="btn btn-danger btn-eliminar"  idEmpleado="' . $value["idEmpleado"] . '">Eliminar</button>
+                                        <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalEmployeeRegister" idEmpleado="' . $value["idUser"] . '">Editar</button>
+                                        <button type="button" class="btn btn-danger btn-eliminar"  idEmpleado="' . $value["idUser"] . '">Eliminar</button>
                                     </div>
                                         </td>';
                                     echo '</tr>';

@@ -1,3 +1,16 @@
+<?php
+
+$producto = ProductoController::getProducto(null, null);
+$categoria = ProductoController::getCategoria(null, null);
+$subCategoria = ProductoController::getSubCategoria(null, null);
+$marca = ProductoController::getMarca(null, null);
+$unidad = ProductoController::getUnidad(null, null);
+?>
+
+
+
+
+
 <section class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
@@ -34,91 +47,160 @@
 
 
 
-            <form id="formEmployee">
 
-              <div class="modal-body">
-                <div class="card hovercard">
-                  <div class="card-body">
-                    <div class="row">
-                      <input type="hidden" name="idEmpleado" id="idEmpleado" value="0">
-                      <div class="col-md-3">
-                        <!-- Date dd/mm/yyyy -->
-                        <div class="form-group">
-                          <label>Codigo de Barra</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" name="codigo" id="codigo" value="crack2" placeholder="Ingrese el codigo" autocomplete="off">
-                          </div>
-                          <!-- /.input group -->
+
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Productos</h3>
+
+                    <div class="card-tools">
+                      <div class="input-group input-group-sm" style="width: 350px;">
+                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                          </button>
                         </div>
                       </div>
-
-
-
-                      <div class="col-md-5">
-                        <!-- Date dd/mm/yyyy -->
-                        <div class="form-group">
-                          <label>Descripcion</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" name="descripcion" id="descripcion" value="crack2" placeholder="Ingrese el descripcion" autocomplete="off">
-                          </div>
-                          <!-- /.input group -->
-                        </div>
-                      </div>
-
-                      <div class="col-md-3">
-                        <!-- Date dd/mm/yyyy -->
-                        <div class="form-group">
-                          <label>Cantiadad</label>
-                          <div class="input-group">
-                            <input type="number" class="form-control" name="cantidad" id="cantidad" value="crack2" placeholder="Ingrese el cantidad" autocomplete="off">
-                          </div>
-                          <!-- /.input group -->
-                        </div>
-                      </div>
-
-                      <div class="col-md-3">
-                        <!-- Date dd/mm/yyyy -->
-                        <div class="form-group">
-                          <label>Precio Compra</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" name="codigo" id="codigo" value="crack2" placeholder="Ingrese el codigo" autocomplete="off">
-                          </div>
-                          <!-- /.input group -->
-                        </div>
-                      </div>
-
-
-
-
-
-
-
-                      <div class="col-md-5">
-                        <!-- Date dd/mm/yyyy -->
-                        <div class="form-group">
-                          <label>Apellido</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" name="apellido" id="apellido" value="crack2" placeholder="Descripcion" autocomplete="off">
-                          </div>
-                          <!-- /.input group -->
-                        </div>
-                      </div>
-
-
-
-
-
-
-
                     </div>
                   </div>
+                  <!-- /.card-header -->
+                  <div class="card-body table-responsive p-0" style="height: 120px;">
+                    <table id="producto" class="table table-bordered table-striped table-hover">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Condigo</th>
+                          <!-- <th>Nombre</th> -->
+                          <th>descripcion</th>
+                          <th>Precio</th>
+                          <!-- <th>Precio Venta</th> -->
+                          <th>Estado</th>
+                          <!-- <th>Acccion</th> -->
+
+
+                          <!-- <th>Telefono</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th> -->
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                        // print_r($producto);
+                        // echo "hola mundo" . $producto[0]['nombrePro'];
+                        // die;
+                        foreach ($producto as $index => $value) {
+                          $estado = null;
+                          // print_r($value);
+                          if ($value["estado"] == 'Activo') {
+                            $estado = "<span class='badge badge-primary'>" . $value["estado"] . "</span>";
+                          } else {
+                            $estado = "<span class='badge badge-danger'>" . $value["estado"] . "</span>";
+                          }
+                          echo '<tr>';
+                          echo '<td>' . ($index + 1) . '</td>';
+                          echo '<td>' . $value["codigoPro"] . '</td>';
+
+                          // echo '<td>' . $value["nombrePro"] . '</td>';
+                          echo '<td>' . $value["descripcion"] . '</td>';
+                          echo '<td>' . $value["precioCompra"] . '</td>';
+                          // echo '<td>' . $value["precioVenta"] . '</td>';
+                          // echo '<td>' . $value["estado"] . '</td>';
+                          // echo '<td>' . $value["telefono"] . '</td>';
+                          echo '<td>' . $estado  . '</td>';
+                          // echo '<td>
+                          //               <div class="btn-group" role="group" aria-label="Basic example">
+                          //               <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalProducto" idProducto="' . $value["idProducto"] . '">Editar</button>
+                          //               <button type="button" class="btn btn-danger btn-eliminar"  idProducto="' . $value["idProducto"] . '">Eliminar</button>
+                          //           </div>
+                          //               </td>';
+                          echo '</tr>';
+                        }
+                        ?>
+                      </tbody>
+                    </table>
+
+
+
+
+
+                  </div>
+                  <!-- /.card-body -->
+
+                </div>
+                <!-- /.card -->
+
+              </div>
+
+
+              <div class="col-md-4">
+                <!-- Date dd/mm/yyyy -->
+                <div class="form-group">
+                  <label>Codigo de Barra</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="codigo" id="codigo" value="crack2" placeholder="Ingrese el codigo" autocomplete="off">
+                  </div>
+                  <!-- /.input group -->
                 </div>
               </div>
-              <div class="modal-footer justify-content-between">
-                <!-- <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button> -->
-                <button type="submit" class="btn btn-info">Save changes</button>
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+            <div class="row">
+              <input type="hidden" name="idEmpleado" id="idEmpleado" value="0">
+
+
+
+
+              <div class="col-md-4">
+                <!-- Date dd/mm/yyyy -->
+                <div class="form-group">
+                  <label>Descripcion</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="descripcion" id="descripcion" value="crack2" placeholder="Ingrese el descripcion" autocomplete="off" disabled>
+                  </div>
+                  <!-- /.input group -->
+                </div>
               </div>
-            </form>
+
+              <div class="col-md-3">
+                <!-- Date dd/mm/yyyy -->
+                <div class="form-group">
+                  <label>Cantiadad</label>
+                  <div class="input-group">
+                    <input type="number" class="form-control" name="cantidad" id="cantidad" value="crack2" placeholder="Ingrese el cantidad" autocomplete="off">
+                  </div>
+                  <!-- /.input group -->
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <!-- Date dd/mm/yyyy -->
+                <div class="form-group">
+                  <label>Precio Compra</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="codigo" id="codigo" value="crack2" placeholder="Precio Compra" autocomplete="off" disabled>
+                  </div>
+                  <!-- /.input group -->
+                </div>
+              </div>
 
 
 
@@ -129,11 +211,59 @@
 
 
 
+              <div class="col-md-3">
+                <!-- Date dd/mm/yyyy -->
+                <div class="form-group">
+                  <label>Sub Total</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="apellido" id="apellido" value="crack2" placeholder="Sub Total" autocomplete="off">
+                  </div>
+                  <!-- /.input group -->
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
           </div>
         </div>
-        <!-- /.card -->
       </div>
+      <div class="modal-footer justify-content-between">
+        <!-- <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button> -->
+        <button type="submit" class="btn btn-info">Save changes</button>
+      </div>
+      </form>
+
+
+
+
+
+
+
+
+
+
     </div>
+  </div>
+  <!-- /.card -->
+  </div>
+  </div>
   </div>
 </section>
 
