@@ -5,66 +5,8 @@ require_once "Conection.php";
 class EmpleadoModel
 {
 
-  static public function getTipoUsuario()
-  {
-    $respuesta = Conection::connect()->prepare("SELECT tg.idTipo,tg.descriccion 
-            FROM tipo_general tg WHERE tg.tipo = 'user' AND  tg.estado IS TRUE");
 
-    $respuesta->execute();
-    return $respuesta->fetchAll();
-  }
 
-  static public function getSexo()
-  {
-    $respuesta = Conection::connect()->prepare("SELECT s.idSexo, S.sexo FROM sexo S");
-    $respuesta->execute();
-    return $respuesta->fetchAll();
-  }
-
-  static public function registrarEmpleado($datos)
-  {
-
-    // if(isset($datos["idEmpleado"]) && $datos["idEmpleado"] > 0) {
-    //   echo "existe";
-    // } else {
-    //   echo "no existe";
-    // }
-    // print_r($_POST);die;
-    if (isset($datos["idEmpleado"]) && $datos["idEmpleado"] > 0) { /// NUEVO EMPLEADO
-      $respuesta = Conection::connect()->prepare("CALL registrarEmpleado (?,?,?,?,?,?,?,?,?,?,?,?)");
-      $respuesta->bindParam("1", $datos["idEmpleado"], PDO::PARAM_INT);
-      $respuesta->bindParam("2", $datos["nombre"], PDO::PARAM_STR);
-      $respuesta->bindParam("3", $datos["apellido"], PDO::PARAM_STR);
-      $respuesta->bindParam("4", $datos["idSexo"], PDO::PARAM_INT);
-      $respuesta->bindParam("5", $datos["identifcacion"], PDO::PARAM_STR);
-      $respuesta->bindParam("6", $datos["fechaNacimiento"], PDO::PARAM_STR);
-      $respuesta->bindParam("7", $datos["usuario"], PDO::PARAM_STR);
-      $respuesta->bindParam("8", $datos["clave"], PDO::PARAM_STR);
-      $respuesta->bindParam("9", $datos["idTipoUser"], PDO::PARAM_INT);
-      $respuesta->bindParam("10", $datos["estado"], PDO::PARAM_BOOL);
-      $respuesta->bindParam("11", $datos["telefono"], PDO::PARAM_STR);
-      $respuesta->bindParam("12", $datos["correo"], PDO::PARAM_STR);
-
-      $respuesta->execute();
-      return $respuesta->fetch();
-    } else { /// EDITAR EMPLEADO
-      $respuesta = Conection::connect()->prepare("CALL registrarEmpleado (null,?,?,?,?,?,?,?,?,?,?,?)");
-      $respuesta->bindParam("1", $datos["nombre"], PDO::PARAM_STR);
-      $respuesta->bindParam("2", $datos["apellido"], PDO::PARAM_STR);
-      $respuesta->bindParam("3", $datos["idSexo"], PDO::PARAM_INT);
-      $respuesta->bindParam("4", $datos["identificacion"], PDO::PARAM_STR);
-      $respuesta->bindParam("5", $datos["fechaNacimiento"], PDO::PARAM_STR);
-      $respuesta->bindParam("6", $datos["usuario"], PDO::PARAM_STR);
-      $respuesta->bindParam("7", $datos["clave"], PDO::PARAM_STR);
-      $respuesta->bindParam("8", $datos["tipoUsuario"], PDO::PARAM_INT);
-      $respuesta->bindParam("9", $datos["estado"], PDO::PARAM_BOOL);
-      $respuesta->bindParam("10", $datos["telefono"], PDO::PARAM_STR);
-      $respuesta->bindParam("11", $datos["correo"], PDO::PARAM_STR);
-
-      $respuesta->execute();
-      return $respuesta->fetch();
-    }
-  }
 
   static public function getEmpleados($item, $value)
   {
@@ -74,7 +16,10 @@ class EmpleadoModel
       u.user,
       p.nombre,
       p.apellido,
+      s.idSexo,
+      tg.descriccion AS tipoUsuario,
       p.fechaNaci,
+      p.identificacion AS identificacion,
       s.sexo,
       u.idTipoUser,
       c.descripcion AS correo, 
@@ -83,6 +28,7 @@ class EmpleadoModel
       CASE WHEN e.estado IS TRUE  THEN 'Activo' ELSE 'Inactivo' END AS estado
       FROM user u
       INNER JOIN empleado e ON e.idEmpreado = u.idEmpleado
+      INNER JOIN tipo_general tg ON tg.idTipo = u.idTipoUser
       INNER JOIN persona p ON p.idPersona = e.idPersona
       INNER JOIN sexo s ON s.idSexo = p.idSexo
       INNER JOIN tercero_telefono tt ON p.idTercero = tt.idTercero
@@ -102,6 +48,7 @@ class EmpleadoModel
   }
 
 
+
   static public function getEmpleado($ID)
   {
     // echo "hola prueba" . $ID;
@@ -113,6 +60,75 @@ class EmpleadoModel
     $data->execute();
     return $data->fetch();
   }
+
+
+
+
+
+  static public function getTipoUsuario()
+  {
+    $respuesta = Conection::connect()->prepare("SELECT tg.idTipo,tg.descriccion 
+            FROM tipo_general tg WHERE tg.tipo = 'user' AND  tg.estado IS TRUE");
+
+    $respuesta->execute();
+    return $respuesta->fetchAll();
+  }
+
+  static public function getSexo()
+  {
+    $respuesta = Conection::connect()->prepare("SELECT s.idSexo, S.sexo FROM sexo S");
+    $respuesta->execute();
+    return $respuesta->fetchAll();
+  }
+
+
+
+
+
+  static public function registrarEmpleado($datos)
+  {
+    // print_r($_POST);die;
+    if (isset($datos["idEmpleado"]) && $datos["idEmpleado"] > 0) { /// NUEVO EMPLEADO
+      $respuesta = Conection::connect()->prepare("CALL registrarEmpleado (?,?,?,?,?,?,?,?,?,?,?,?)");
+      $respuesta->bindParam("1", $datos["idEmpleado"], PDO::PARAM_INT);
+      $respuesta->bindParam("2", $datos["nombre"], PDO::PARAM_STR);
+      $respuesta->bindParam("3", $datos["apellido"], PDO::PARAM_STR);
+      $respuesta->bindParam("4", $datos["idSexo"], PDO::PARAM_INT);
+      $respuesta->bindParam("5", $datos["identificacion"], PDO::PARAM_STR);
+      $respuesta->bindParam("6", $datos["fechaNaci"], PDO::PARAM_STR);
+      $respuesta->bindParam("7", $datos["usuario"], PDO::PARAM_STR);
+      $respuesta->bindParam("8", $datos["clave"], PDO::PARAM_STR);
+      $respuesta->bindParam("9", $datos["idTipoUser"], PDO::PARAM_INT);
+      $respuesta->bindParam("10", $datos["estado"], PDO::PARAM_BOOL);
+      $respuesta->bindParam("11", $datos["telefono"], PDO::PARAM_STR);
+      $respuesta->bindParam("12", $datos["correo"], PDO::PARAM_STR);
+
+      $respuesta->execute();
+      return $respuesta->fetch();
+    } else { /// EDITAR EMPLEADO
+      $respuesta = Conection::connect()->prepare("CALL registrarEmpleado (null,?,?,?,?,?,?,?,?,?,?,?)");
+      $respuesta->bindParam("1", $datos["nombre"], PDO::PARAM_STR);
+      $respuesta->bindParam("2", $datos["apellido"], PDO::PARAM_STR);
+      $respuesta->bindParam("3", $datos["idSexo"], PDO::PARAM_INT);
+      $respuesta->bindParam("4", $datos["identificacion"], PDO::PARAM_STR);
+      $respuesta->bindParam("5", $datos["fechaNaci"], PDO::PARAM_STR);
+      $respuesta->bindParam("6", $datos["usuario"], PDO::PARAM_STR);
+      $respuesta->bindParam("7", $datos["clave"], PDO::PARAM_STR);
+      $respuesta->bindParam("8", $datos["idTipoUser"], PDO::PARAM_INT);
+      $respuesta->bindParam("9", $datos["estado"], PDO::PARAM_BOOL);
+      $respuesta->bindParam("10", $datos["telefono"], PDO::PARAM_STR);
+      $respuesta->bindParam("11", $datos["correo"], PDO::PARAM_STR);
+
+      $respuesta->execute();
+      return $respuesta->fetch();
+    }
+  }
+
+
+
+
+
+
 
   static public function eliminarEmpleado($ID)
   {

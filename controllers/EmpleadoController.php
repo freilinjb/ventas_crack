@@ -25,14 +25,14 @@ class EmpleadoController
     $datos = array(
       "nombre" => $_POST["nombre"],
       "apellido" => $_POST["apellido"],
-      "sexo" => $_POST["idSexo"],
+      "sexo" => $_POST["sexo"],
       "identificacion" => $_POST["identificacion"],
       "usuario" => $_POST["usuario"],
       "clave" => $_POST["clave"],
       "tipoUsuario" => $_POST["tipoUsuario"],
       "telefono" => $_POST["telefono"],
       "correo" => $_POST["correo"],
-      "fechaNacimiento" => $_POST["fechaNacimiento"],
+      "fechaNaci" => $_POST["fechaNaci"],
       "estado" => $_POST["estado"]
     );
 

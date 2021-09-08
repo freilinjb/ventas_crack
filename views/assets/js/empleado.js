@@ -92,10 +92,10 @@ $(function () {
         dato.append("identificacion", $("#identificacion").val());
         dato.append("usuario", $("#usuario").val());
         dato.append("clave", $("#clave").val());
-        dato.append("tipoUsuario", $("#tipoUsuario").val());
+        dato.append("idTipoUser", $("#tipoUsuario").val());
         dato.append("telefono", $("#telefono").val());
         dato.append("correo", $("#correo").val());
-        dato.append("fechaNacimiento", $("#fechaNacimiento").val());
+        dato.append("fechaNaci", $("#fechaNacimiento").val());
         dato.append("estado", $("#estado").val());
 
         console.log('daara: ', dato);
@@ -235,13 +235,13 @@ $(function () {
         $("#apellido").val(respuesta["apellido"]);
         $("#sexo").val(Number(respuesta["idSexo"]));
         $("#identificacion").val(respuesta["identificacion"]);
-        $("#usuario").val(respuesta["usuario"]);
+        $("#usuario").val(respuesta["user"]);
         $("#clave").val(respuesta["clave"]);
-        $("#tipoUsuario").val(Number(respuesta["idTipoUsuario"]));
+        $("#tipoUsuario").val(Number(respuesta["idTipoUser"]));
         $("#telefono").val(respuesta["telefono"]);
-        $("#Correo").val(respuesta["Correo"]);
-        $("#fechaNacimiento").val(respuesta["fechaNacimiento"]);
-        $("#estado").val(respuesta["estado"]);
+        $("#correo").val(respuesta["correo"]);
+        $("#fechaNacimiento").val(respuesta["fechaNaci"]);
+        $("#estado").val(respuesta["estado"] == 'Activo' ? 1 : 0);
       },
     });
   });

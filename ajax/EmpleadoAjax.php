@@ -12,14 +12,13 @@ class EmpleadoAjax
 
     public function registrarEmpleado()
     {
-
         $datos = array(
             "nombre" => $_POST["nombre"],
             "apellido" => $_POST["apellido"],
             "idSexo" => $_POST["idSexo"],
             "identificacion" => $_POST["identificacion"],
-            "fechaNacimiento" => $_POST["fechaNacimiento"],
-            "usuario" => $_POST["usuario"],
+            "fechaNacimiento" => $_POST["fechaNaci"],
+            "user" => $_POST["user"],
             "clave" => $_POST["clave"],
             "tipoUsuario" => $_POST["tipoUsuario"],
             "telefono" => $_POST["telefono"],
@@ -27,7 +26,7 @@ class EmpleadoAjax
             "estado" => $_POST["estado"],
         );
 
-        $respuesta  = EmpleadoModel::registrarEmpleado($datos);
+        $respuesta  = EmpleadoModel::registrarEmpleado($_POST);
 
         // print_r($respuesta);
         // die;
@@ -36,15 +35,15 @@ class EmpleadoAjax
 
     public function actualizandoEmpleado()
     {
-
+        // die;
         $datos = array(
             "idEmpleado" => $_POST["idEmpleado"],
             "nombre" => $_POST["nombre"],
             "apellido" => $_POST["apellido"],
-            "sexo" => $_POST["sexo"],
+            "idSexo" => $_POST["idSexo"],
             "identificacion" => $_POST["identificacion"],
-            "fechaNacimiento" => $_POST["fechaNacimiento"],
-            "usuario" => $_POST["usuario"],
+            "fechaNaci" => $_POST["fechaNaci"],
+            "user" => $_POST["user"],
             "clave" => $_POST["clave"],
             "tipoUsuario" => $_POST["tipoUsuario"],
             "telefono" => $_POST["telefono"],
