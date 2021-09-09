@@ -90,7 +90,7 @@ $(function () {
         dato.append("apellido", $("#apellido").val());
         dato.append("idSexo", $("#sexo").val());
         dato.append("identificacion", $("#identificacion").val());
-        dato.append("usuario", $("#usuario").val());
+        dato.append("user", $("#usuario").val());
         dato.append("clave", $("#clave").val());
         dato.append("idTipoUser", $("#tipoUsuario").val());
         dato.append("telefono", $("#telefono").val());

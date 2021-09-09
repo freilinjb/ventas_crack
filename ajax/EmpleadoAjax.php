@@ -17,16 +17,17 @@ class EmpleadoAjax
             "apellido" => $_POST["apellido"],
             "idSexo" => $_POST["idSexo"],
             "identificacion" => $_POST["identificacion"],
-            "fechaNacimiento" => $_POST["fechaNaci"],
+            "fechaNaci" => $_POST["fechaNaci"],
             "user" => $_POST["user"],
             "clave" => $_POST["clave"],
-            "tipoUsuario" => $_POST["tipoUsuario"],
+            "idTipoUser" => $_POST["idTipoUser"],
             "telefono" => $_POST["telefono"],
             "correo" => $_POST["correo"],
             "estado" => $_POST["estado"],
         );
+        $respuesta  = EmpleadoModel::registrarEmpleado($datos);
 
-        $respuesta  = EmpleadoModel::registrarEmpleado($_POST);
+        // $respuesta  = EmpleadoModel::registrarEmpleado($_POST);
 
         // print_r($respuesta);
         // die;
@@ -45,11 +46,12 @@ class EmpleadoAjax
             "fechaNaci" => $_POST["fechaNaci"],
             "user" => $_POST["user"],
             "clave" => $_POST["clave"],
-            "tipoUsuario" => $_POST["tipoUsuario"],
+            "idTipoUser" => $_POST["idTipoUser"],
             "telefono" => $_POST["telefono"],
             "correo" => $_POST["correo"],
             "estado" => $_POST["estado"],
         );
+
 
         $respuesta  = EmpleadoModel::registrarEmpleado($datos);
 

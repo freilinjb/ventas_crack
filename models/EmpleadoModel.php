@@ -87,7 +87,9 @@ class EmpleadoModel
 
   static public function registrarEmpleado($datos)
   {
-    // print_r($_POST);die;
+    // print_r($datos);
+    // die;
+
     if (isset($datos["idEmpleado"]) && $datos["idEmpleado"] > 0) { /// NUEVO EMPLEADO
       $respuesta = Conection::connect()->prepare("CALL registrarEmpleado (?,?,?,?,?,?,?,?,?,?,?,?)");
       $respuesta->bindParam("1", $datos["idEmpleado"], PDO::PARAM_INT);
@@ -96,14 +98,19 @@ class EmpleadoModel
       $respuesta->bindParam("4", $datos["idSexo"], PDO::PARAM_INT);
       $respuesta->bindParam("5", $datos["identificacion"], PDO::PARAM_STR);
       $respuesta->bindParam("6", $datos["fechaNaci"], PDO::PARAM_STR);
-      $respuesta->bindParam("7", $datos["usuario"], PDO::PARAM_STR);
+      $respuesta->bindParam("7", $datos["user"], PDO::PARAM_STR);
       $respuesta->bindParam("8", $datos["clave"], PDO::PARAM_STR);
       $respuesta->bindParam("9", $datos["idTipoUser"], PDO::PARAM_INT);
       $respuesta->bindParam("10", $datos["estado"], PDO::PARAM_BOOL);
       $respuesta->bindParam("11", $datos["telefono"], PDO::PARAM_STR);
       $respuesta->bindParam("12", $datos["correo"], PDO::PARAM_STR);
+      // print_r($respuesta->execute());
 
+      // echo $respuesta;
       $respuesta->execute();
+      // echo $respuesta;
+
+      // print_r($datos);
       return $respuesta->fetch();
     } else { /// EDITAR EMPLEADO
       $respuesta = Conection::connect()->prepare("CALL registrarEmpleado (null,?,?,?,?,?,?,?,?,?,?,?)");
@@ -112,7 +119,7 @@ class EmpleadoModel
       $respuesta->bindParam("3", $datos["idSexo"], PDO::PARAM_INT);
       $respuesta->bindParam("4", $datos["identificacion"], PDO::PARAM_STR);
       $respuesta->bindParam("5", $datos["fechaNaci"], PDO::PARAM_STR);
-      $respuesta->bindParam("6", $datos["usuario"], PDO::PARAM_STR);
+      $respuesta->bindParam("6", $datos["user"], PDO::PARAM_STR);
       $respuesta->bindParam("7", $datos["clave"], PDO::PARAM_STR);
       $respuesta->bindParam("8", $datos["idTipoUser"], PDO::PARAM_INT);
       $respuesta->bindParam("9", $datos["estado"], PDO::PARAM_BOOL);
