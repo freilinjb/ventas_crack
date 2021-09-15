@@ -1,5 +1,9 @@
 <?php
-$categorias = CategoriaController::getCategoria();
+
+$comprobante = ComprobanteModel::getComprobante(null, null);
+
+$tipoComprobante = ComprobanteModel::getTipoComprobante(null, null);
+
 ?>
 
 <section class="content-header">
@@ -35,19 +39,19 @@ $categorias = CategoriaController::getCategoria();
                     </div>
                     <div class="card-body">
                         <div class="">
-                            <button class="btn btn-info mb-3" data-toggle="modal" data-target="#modalCategoria" id="registrarCategoria">
+                            <button class="btn btn-info mb-3" data-toggle="modal" data-target="#modalCategoria" id="addComprobante">
                                 <strong> + </strong> Comprobantes
                             </button>
                         </div>
-                        <table id="empleados" class="table table-bordered table-striped table-hover">
+                        <table id="comprobante" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Tipo-Comprobante</th>
                                     <th>Sucursal</th>
-                                    <th>tipo Documento</th>
-                                    <th>Titulo</th>
-                                    <th>fecha</th>
+                                    <!-- <th>tipo Documento</th> -->
+                                    <!-- <th>Titulo</th> -->
+                                    <!-- <th>fecha</th> -->
                                     <th>vencimiento</th>
                                     <th>inicio</th>
                                     <th>fin</th>
@@ -58,7 +62,7 @@ $categorias = CategoriaController::getCategoria();
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($categorias as $index => $value) {
+                                foreach ($comprobante as $index => $value) {
                                     $estado = null;
                                     if ($value["estado"] == 'Activo') {
                                         $estado = "<span class='badge badge-primary'>" . $value["estado"] . "</span>";
@@ -67,14 +71,11 @@ $categorias = CategoriaController::getCategoria();
                                     }
                                     echo '<tr>';
                                     echo '<td>' . ($index + 1) . '</td>';
-                                    echo '<td>' . $value["tipocomprobante"] . '</td>';
+                                    echo '<td>' . $value["comprobante"] . '</td>';
                                     echo '<td>' . $value["sucursal"] . '</td>';
-                                    echo '<td>' . $value["tipodocumento"] . '</td>';
-                                    echo '<td>' . $value["titulo"] . '</td>';
-                                    echo '<td>' . $value["fecha"] . '</td>';
                                     echo '<td>' . $value["vencimiento"] . '</td>';
                                     echo '<td>' . $value["inicio"] . '</td>';
-                                    echo '<td>' . $value["fin"] . '</td>';
+                                    echo '<td>' . $value["final"] . '</td>';
                                     echo '<td>' . $value["secuencia"] . '</td>';
                                     echo '<td>' . $estado  . '</td>';
                                     echo '<td>
@@ -101,7 +102,7 @@ $categorias = CategoriaController::getCategoria();
 <div class="modal fade" id="modalCategoria" style="display: none; padding-right: 17px;" aria-modal="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form id="formCategoria">
+            <form id="formComprobante">
                 <div class="modal-header bg-info">
                     <h4 class="modal-title" id="tituloModal">Registro de Comprobantes</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -117,10 +118,10 @@ $categorias = CategoriaController::getCategoria();
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Tipo Comprobante</label>
-                                        <select class="form-control" name="sexo" id="sexo">
+                                        <select class="form-control" name="idTipoComprobante" id="idTipoComprobante">
                                             <option value="0" disabled selected>Seleccione una opción</option>
-                                            <?php foreach ($sexo as $key) {
-                                                echo '<option value="' . $key['idSexo'] . '">' . $key['sexo'] . '</option>';
+                                            <?php foreach ($tipoComprobante as $key) {
+                                                echo '<option value="' . $key['idTipoComprobante'] . '">' . $key['tipoComprobante'] . '</option>';
                                             }  ?>
                                         </select>
                                     </div>
@@ -130,16 +131,16 @@ $categorias = CategoriaController::getCategoria();
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Sucursal</label>
-                                        <select class="form-control" name="sexo" id="sexo">
+                                        <select class="form-control" name="sucursal" id="sucursal">
                                             <option value="0" disabled selected>Seleccione una opción</option>
                                             <?php foreach ($sexo as $key) {
-                                                echo '<option value="' . $key['idSexo'] . '">' . $key['sexo'] . '</option>';
+                                                echo '<option value="' . $key['idSucursal'] . '">' . $key['sucursal'] . '</option>';
                                             }  ?>
                                         </select>
                                     </div>
                                 </div>
 
-
+                                <!-- 
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Tipo Documento</label>
@@ -150,34 +151,11 @@ $categorias = CategoriaController::getCategoria();
                                             }  ?>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
 
 
-                                <div class="col-6-lg col-xl-6 col-sm-12">
-                                    <!-- Date dd/mm/yyyy -->
-                                    <div class="form-group">
-                                        <label>Titulo</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="apellido" id="apellido" value="crack2" placeholder="Ingrese el apellido" autocomplete="off">
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                </div>
 
 
-                                <div class="col-6-lg col-xl-6 col-sm-12">
-                                    <!-- Date dd/mm/yyyy -->
-                                    <div class="form-group">
-                                        <label>Fecha :</label>
-
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                            </div>
-                                            <input type="date" class="form-control" name="fechaNacimiento" id="fechaNacimiento" value="">
-                                        </div>
-                                    </div>
-                                </div>
 
 
                                 <div class="col-6-lg col-xl-6 col-sm-12">
@@ -189,7 +167,7 @@ $categorias = CategoriaController::getCategoria();
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                             </div>
-                                            <input type="date" class="form-control" name="fechaNacimiento" id="fechaNacimiento" value="">
+                                            <input type="date" class="form-control" name="vencimiento" id="vencimiento" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -200,7 +178,7 @@ $categorias = CategoriaController::getCategoria();
                                     <div class="form-group">
                                         <label>inicio</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="apellido" id="apellido" value="crack2" placeholder="Ingrese el apellido" autocomplete="off">
+                                            <input type="text" class="form-control" name="inicio" id="inicio" value="1" placeholder="Ingrese el apellido" autocomplete="off">
                                         </div>
                                         <!-- /.input group -->
                                     </div>
@@ -212,7 +190,7 @@ $categorias = CategoriaController::getCategoria();
                                     <div class="form-group">
                                         <label>fin</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="apellido" id="apellido" value="crack2" placeholder="Ingrese el apellido" autocomplete="off">
+                                            <input type="text" class="form-control" name="final" id="final" value="1" placeholder="Ingrese el final" autocomplete="off">
                                         </div>
                                         <!-- /.input group -->
                                     </div>
@@ -225,7 +203,7 @@ $categorias = CategoriaController::getCategoria();
                                     <div class="form-group">
                                         <label>Secuencia</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="apellido" id="apellido" value="crack2" placeholder="Ingrese el apellido" autocomplete="off">
+                                            <input type="text" class="form-control" name="secuencia" id="secuencia" value="1" placeholder="Ingrese el secuencia" autocomplete="off">
                                         </div>
                                         <!-- /.input group -->
                                     </div>
@@ -266,7 +244,7 @@ $categorias = CategoriaController::getCategoria();
 <!-- END MODAL REGISTRAR EMPLEADO-->
 
 <!-- SCRIPT PERSONAL -->
-<script src="views/assets/js/categoria.js"></script>
+<script src="views/assets/js/comprobante.js"></script>
 <!-- DataTables  & Plugins -->
 
 <link rel="stylesheet" href="views/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -299,7 +277,7 @@ $categorias = CategoriaController::getCategoria();
 <!-- Page specific script -->
 <script>
     $(function() {
-        $("#empleados").DataTable({
+        $("#comprobante").DataTable({
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
@@ -307,6 +285,6 @@ $categorias = CategoriaController::getCategoria();
             "paging": true,
             "pageLength": 7,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-        }).buttons().container().appendTo('#empleados_wrapper  .col-md-6:eq(0)');
+        }).buttons().container().appendTo('#comprobante_wrapper  .col-md-6:eq(0)');
     });
 </script>
