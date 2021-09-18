@@ -1,70 +1,147 @@
 <?php
 
-require_once "../Models/CategoriaModel.php";
+require_once "../Models/ComprobanteModel.php";
 
-class CategoriaAjax
+class ComprobanteAjax
 {
-    // public $idEmpleado;
-    // public $idSexo;
-    // public $idDepartamento;
-    // public $datosEmpleado;
-
-    public function registrarCategoria()
+    public function addComprobante()
     {
 
-        $datos = array(
-            "creado_por" => 1,
-            "nombre" => $_POST["nombre"],
-            "estado" => $_POST["estado"],
-        );
+        // print_r($_POST);
+        // die;
+        if (isset($_POST['comprobante'])) {
+            # code...
+            // print_r($_POST);
+            // die;
+            $datos = array(
+                'idTipoComprobante' => $_POST['idTipoComprobante'],
+                'sucursal' => $_POST['sucursal'],
+                'vencimiento' => $_POST['vencimiento'],
+                'inicio' => $_POST['inicio'],
+                'final' => $_POST['final'],
+                'secuencia' => $_POST['secuencia'],
+                'estado' => $_POST['estado'],
+            );
 
-
-        $respuesta  = CategoriaModel::registrarCategoria($datos);
-
-        // print_r($respuesta);die;
-        // echo "registrado";
-        echo json_encode($respuesta);
-    }
-
-    public function actualizandoCategoria()
-    {
-
-        $datos = array(
-            "idCategoria" => $_POST["idCategoria"],
-            "creado_por" => 1,
-            "nombre" => $_POST["nombre"],
-            "estado" => $_POST["estado"],
-        );
-
-
-        $respuesta  = CategoriaModel::registrarCategoria($datos);
-
-        // print_r($respuesta);die;
-        // echo "registrado";
-        echo json_encode($respuesta);
-    }
-
-    public function getCategoria()
-    {
-
-        $idCategoria = $_POST['idCategoria'];
-        $respuesta  = CategoriaModel::getCategoria($idCategoria);
-
-        echo json_encode($respuesta);
-    }
-
-    public function eliminarEmpleado()
-    {
-        if (preg_match('/^[0-9]+$/', $_POST['idEmpleado'])) {
-            $idEmpleado = $_POST['idEmpleado'];
-            // echo "idEmpleado; " . $idEmpleado;die;
-            $respuesta  = EmpleadoModel::eliminarEmpleado($idEmpleado);
-
-            echo json_encode($respuesta);
-        } else {
-            $datos = array("msg" => "Solo se admiten numeros", "status" => 200);
-            echo json_encode($datos);
+            $resultado = ComprobanteModel::addComprobante($datos);
+            if ($resultado == 0) {
+                echo json_encode(
+                    array(
+                        "error" => true,
+                        "exec" => "registro",
+                        "msg" => "Ah ocurrido un error",
+                    )
+                );
+            } else {
+                echo json_encode(
+                    array(
+                        "ssucess" => true,
+                        "exec" => "registro",
+                        "msg" => "Se ha registrado de forma correcta",
+                    )
+                );
+            }
         }
+    }
+
+
+
+    // public function eliminarComprobante()
+    // {
+    //     $idTipoComprobante = $_POST['idTipoComprobante'];
+
+    //     // print_r($_POST);die;
+    //     $respuesta = ComprobanteModel::eliminarComprobante($idTipoComprobante);
+    //     // print_r($respuesta);
+    //     if ($respuesta == true) {
+    //         echo json_encode(
+    //             array(
+    //                 "ssucess" => true,
+    //                 "exec" => "eliminarUsuario",
+    //                 "msg" => "Se ha eliminado de forma correcta!!",
+    //             )
+    //         );
+    //     } else {
+    //         echo json_encode(
+    //             array(
+    //                 "error" => true,
+    //                 "exec" => "actualizacion",
+    //                 "msg" => "Ah ocurrido un error",
+    //             )
+    //         );
+    //     }
+    // }
+
+
+
+
+
+
+    public function actualizandoComprobante()
+    {
+
+        $datos = array(
+            "idAquisicion" => $_POST['idAquisicion'],
+            'idTipoComprobante' => $_POST['idTipoComprobante'],
+            'sucursal' => $_POST['sucursal'],
+            'vencimiento' => $_POST['vencimiento'],
+            'inicio' => $_POST['inicio'],
+            'final' => $_POST['final'],
+            'secuencia' => $_POST['secuencia'],
+            'estado' => $_POST['estado'],
+        );
+
+        $resultado = ComprobanteModel::actualizandoComprobante($datos);
+
+        if ($resultado == 0) {
+            echo json_encode(
+                array(
+                    "error" => true,
+                    "exec" => "actualizacion",
+                    "msg" => "Ah ocurrido un error",
+                )
+            );
+        } else {
+            echo json_encode(
+                array(
+                    "ssucess" => true,
+                    "exec" => "actualizacion",
+                    "msg" => "Se ha actualizado de forma correcta",
+                )
+            );
+        }
+
+
+
+        // $datos = array(
+        //     'idTipoComprobante' => $_POST['idTipoComprobante'],
+        //     'sucursal' => $_POST['sucursal'],
+        //     'vencimiento' => $_POST['vencimiento'],
+        //     'inicio' => $_POST['inicio'],
+        //     'final' => $_POST['final'],
+        //     'secuencia' => $_POST['secuencia'],
+        //     'estado' => $_POST['estado'],
+        // );
+
+
+        // $respuesta  = ComprobanteModel::addComprobante($datos);
+
+        // // print_r($respuesta);
+        // // die;
+        // // echo "registrado";
+        // echo json_encode($respuesta);
+    }
+
+
+
+
+    public function getTipoComprobante()
+    {
+
+        $idTipoComprobante = $_POST['idTipoComprobante'];
+        $respuesta  = ComprobanteAjax::getTipoComprobante($idTipoComprobante);
+
+        echo json_encode($respuesta);
     }
 }
 
@@ -73,31 +150,42 @@ class CategoriaAjax
 /*=============================================
 Comprobamos que el valor no venga vacío
 =============================================*/
-if (isset($_POST['exec']) && !empty($_POST['exec'])) {
-    $funcion = $_POST['exec'];
-    $ejecutar = new CategoriaAjax();
+// print_r($_POST);
+// print_r($_GET);
+// die;
+
+if (isset($_GET['exec']) && !empty($_GET['exec'])) {
+    // print_r($_POST);
+    // die;
+
+    $funcion = $_GET['exec'];
+    $ejecutar = new ComprobanteAjax();
+    // echo $funcion;
     //En función del parámetro que nos llegue ejecutamos una función u otra
     switch ($funcion) {
 
-        case 'registrarCategoria':
-            $ejecutar->registrarCategoria();
+        case 'addComprobante':
+            // echo "hola mundo";
+            $ejecutar->addComprobante();
             // echo "hola mundo";
             break;
 
-        case 'actualizandoCategoria':
-            $ejecutar->actualizandoCategoria();
-            // echo "hola mundo";
+
+
+        case 'actualizandoComprobante':
+            $ejecutar->actualizandoComprobante();
+            //     // echo "hola mundo";
             break;
 
-        case 'getCategoria':
-            $ejecutar->getCategoria();
+        case 'getTipoComprobante':
+            $ejecutar->getTipoComprobante();
             // echo "hola mundo";
             break;
 
             // case 'eliminarEmpleado':
-            //     $ejecutar->eliminarEmpleado();
-            //     // echo "hola mundo";
-            //     break;
+            //   $ejecutar->eliminarEmpleado();
+            //   // echo "hola mundo";
+            //   break;
         case 'funcion2':
             $b->accion2();
             break;
