@@ -4,10 +4,6 @@ require_once "../Models/UnidadModel.php";
 
 class UnidadAjax
 {
-  // public $idEmpleado;
-  // public $idSexo;
-  // public $idDepartamento;
-  // public $datosEmpleado;
 
   public function registrarUnidad()
   {
@@ -53,19 +49,33 @@ class UnidadAjax
     echo json_encode($respuesta);
   }
 
-  // public function eliminarEmpleado()
-  // {
-  //   if (preg_match('/^[0-9]+$/', $_POST['idEmpleado'])) {
-  //     $idEmpleado = $_POST['idEmpleado'];
-  //     // echo "idEmpleado; " . $idEmpleado;die;
-  //     $respuesta  = EmpleadoModel::eliminarEmpleado($idEmpleado);
+  public function eliminarUnidad()
+  {
 
-  //     echo json_encode($respuesta);
-  //   } else {
-  //     $datos = array("msg" => "Solo se admiten numeros", "status" => 200);
-  //     echo json_encode($datos);
-  //   }
-  // }
+    $idUnidad = $_POST['idUnidad'];
+
+    print_r($_POST);
+    die;
+    $respuesta = UnidadModel::eliminarUnidad($idUnidad);
+    // print_r($respuesta);
+    if ($respuesta == true) {
+      echo json_encode(
+        array(
+          "sucess" => true,
+          "exec" => "eliminarUnidad",
+          "msg" => "Se ha eliminado de forma correcta!!",
+        )
+      );
+    } else {
+      echo json_encode(
+        array(
+          "error" => true,
+          "exec" => "actualizacion",
+          "msg" => "Ah ocurrido un error",
+        )
+      );
+    }
+  }
 }
 
 
@@ -103,10 +113,10 @@ if (isset($_POST['exec']) && !empty($_POST['exec'])) {
       // echo "hola mundo";
       break;
 
-      // case 'eliminarEmpleado':
-      //   $ejecutar->eliminarEmpleado();
-      //   // echo "hola mundo";
-      //   break;
+    case 'eliminarEmpleado':
+      $ejecutar->eliminarUnidad();
+      // echo "hola mundo";
+      break;
     case 'funcion2':
       $b->accion2();
       break;
