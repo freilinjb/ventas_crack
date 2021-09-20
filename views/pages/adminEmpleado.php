@@ -12,7 +12,7 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/ventas_crack/index.php?route=escritorio">Home</a></li>
                     <!-- <li class="breadcrumb-item"><a href="#">Layout</a></li> -->
                     <li class="breadcrumb-item active">Administración de Empleado</li>
                 </ol>

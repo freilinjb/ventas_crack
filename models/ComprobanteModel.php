@@ -13,12 +13,14 @@ class ComprobanteModel
   }
 
 
-  static public function getComprobante($idTipoComprobante)
+  static public function getComprobante($idAquisicion)
   {
     $respuesta = null;
-    if ($idTipoComprobante == null) {
+    if ($idAquisicion == null) {
       $respuesta = Conection::connect()->prepare("
-      SELECT ac.idTipoComprobante,
+      SELECT
+      ac.idAquisicion, 
+      ac.idTipoComprobante,
       ac.idTipoComprobante,
       c.encabezado AS comprobante,
       ac.idSucursal,
@@ -35,6 +37,7 @@ class ComprobanteModel
     } else {
       $respuesta = Conection::connect()->prepare("
       SELECT
+      ac.idAquisicion,
          ac.idTipoComprobante,
           ac.idSucursal, 
           ac.vencimiento, 
@@ -42,7 +45,7 @@ class ComprobanteModel
            ac.final,
            ac.secuencia,
             ac.estado
-            FROM adquirsicion_comprobante ac WHERE ac.idTipoComprobante = $idTipoComprobante");
+            FROM adquirsicion_comprobante ac WHERE ac.idAquisicion, = $idAquisicion");
       $respuesta->execute();
       return $respuesta->fetch();
     }
@@ -60,7 +63,7 @@ class ComprobanteModel
     try {
 
       $exec->beginTransaction();
-      $exec->exec("INSERT INTO adquirsicion_comprobante (idTipoComprobante, vencimiento, inicio, final, secuencia, estado) VALUE ('" . $datos["idTipoComprobante"] . "',  '" . $datos["vencimiento"] . "', '" . $datos["inicio"] . "', '" . $datos["final"] . "', '" . $datos["secuencia"] . "', '" . $datos["secuencia"] . "')");
+      $exec->exec("INSERT INTO adquirsicion_comprobante (idTipoComprobante, vencimiento, inicio, final, secuencia, estado) VALUE ('" . $datos["idTipoComprobante"] . "',  '" . $datos["vencimiento"] . "', '" . $datos["inicio"] . "', '" . $datos["final"] . "', '" . $datos["secuencia"] . "', '" . $datos["estado"] . "')");
 
 
       $idComprobante = $exec->lastInsertId();
@@ -76,76 +79,72 @@ class ComprobanteModel
       throw new Exception('internal-database-error');
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // print_r($datos);
     // die;
 
+  }
 
 
 
+  static public function actualizandoComprobante($datos)
+  {
 
 
+    $respuesta = Conection::connect()->prepare("
+        SELECT
+          ac.idAquisicion,
+          ac.idTipoComprobante,
+          ac.idSucursal, 
+          ac.vencimiento, 
+          ac.inicio,
+          ac.final,
+          ac.secuencia,
+          ac.estado
+            FROM adquirsicion_comprobante ac
+            WHERE ac.idAquisicion = " . $datos['idAquisicion'] . "
+        LIMIT 1");
+    $respuesta->execute();
+    $records = $respuesta->fetchAll();
+
+    print_r($records);
 
 
+    if (count($records) > 0) {
+
+      $data = Conection::connect()->prepare("UPDATE adquirsicion_comprobante ac SET ac.idTipoComprobante = " . $datos['idTipoComprobante'] . ", ac.vencimiento = '" . $datos['vencimiento'] . "', ac.inicio = '" . $datos['inicio'] . "', ac.final = '" . $datos['final'] . "', ac.secuencia = " . $datos['secuencia'] . "', ac.estado = " . $datos['estado'] . " 
+           WHERE ac.idAquisicion = " . $datos['idAquisicion'] . "")->execute();
+
+      return $data;
+    }
+  }
 
 
+  static public function eliminarComprobante($idAquisicion)
+  {
+    $respuesta = Conection::connect()->prepare("
+    SELECT
+    ac.idAquisicion,
+    ac.idTipoComprobante,
+     ac.idSucursal, 
+     ac.vencimiento, 
+     ac.inicio,
+      ac.final,
+      ac.secuencia,
+       ac.estado
+       FROM adquirsicion_comprobante ac
+        WHERE ac.idAquisicion = " . $idAquisicion . "
+        LIMIT 1");
+    $respuesta->execute();
+    $records = $respuesta->fetchAll();
+
+    $idAquisicion = $records[0]['idAquisicion'];
 
 
+    if (count($records) > 0) {
 
+      Conection::connect()->prepare("DELETE FROM adquirsicion_comprobante WHERE idAquisicion = $idAquisicion")->execute();
+    }
 
-
-
-
-
-
-
-
-
-    // if (isset($datos["idTipoComprobante"]) && $datos["idTipoComprobante"] > 0) { /// NUEVO COMPROBANTE
-    //   $respuesta = Conection::connect()->prepare("UPDATE adquirsicion_comprobante ac SET ac.vencimiento = ?, ac.inicio = ?, ac.final = ?, ac.secuencia = ?, ac.estado = ?  WHERE ac.idTipoComprobante = ?");
-    //   $respuesta->bindParam("1", $datos["vencimiento"], PDO::PARAM_STR);
-    //   $respuesta->bindParam("2", $datos["inicio"], PDO::PARAM_INT);
-    //   $respuesta->bindParam("3", $datos["final"], PDO::PARAM_INT);
-    //   $respuesta->bindParam("4", $datos["secuencia"], PDO::PARAM_INT);
-    //   $respuesta->bindParam("5", $datos["estado"], PDO::PARAM_BOOL);
-    //   $respuesta->bindParam("6", $datos["idTipoComprobante"], PDO::PARAM_INT);
-
-
-    //   return $respuesta->execute();
-    //   $respuesta->fetch();
-    // } else { /// EDITAR COMPROBANTE  
-    //   $respuesta = Conection::connect()->prepare("INSERT INTO adquirsicion_comprobante(idTipoComprobante ,vencimiento, inicio, final, secuencia, estado) VALUES(?,?,?,?,?,?);");
-    //   $respuesta->bindParam("1", $datos["idTipoComprobante"], PDO::PARAM_INT);
-    //   $respuesta->bindParam("2", $datos["vencimiento"], PDO::PARAM_STR);
-    //   $respuesta->bindParam("3", $datos["inicio"], PDO::PARAM_INT);
-    //   $respuesta->bindParam("4", $datos["final"], PDO::PARAM_INT);
-    //   $respuesta->bindParam("5", $datos["secuencia"], PDO::PARAM_INT);
-    //   $respuesta->bindParam("6", $datos["estado"], PDO::PARAM_BOOL);
-
-
-    //   return $respuesta->execute();
-    //   //  $respuesta->fetch();
-    // }
+    return (count($records) > 0) ? true : false;
   }
 }

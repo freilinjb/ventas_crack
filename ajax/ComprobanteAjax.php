@@ -46,31 +46,32 @@ class ComprobanteAjax
 
 
 
-    // public function eliminarComprobante()
-    // {
-    //     $idTipoComprobante = $_POST['idTipoComprobante'];
+    public function eliminarComprobante()
+    {
+        $idAquisicion = $_POST['idAquisicion'];
 
-    //     // print_r($_POST);die;
-    //     $respuesta = ComprobanteModel::eliminarComprobante($idTipoComprobante);
-    //     // print_r($respuesta);
-    //     if ($respuesta == true) {
-    //         echo json_encode(
-    //             array(
-    //                 "ssucess" => true,
-    //                 "exec" => "eliminarUsuario",
-    //                 "msg" => "Se ha eliminado de forma correcta!!",
-    //             )
-    //         );
-    //     } else {
-    //         echo json_encode(
-    //             array(
-    //                 "error" => true,
-    //                 "exec" => "actualizacion",
-    //                 "msg" => "Ah ocurrido un error",
-    //             )
-    //         );
-    //     }
-    // }
+        // print_r($_POST);
+        // die;
+        $respuesta = ComprobanteModel::eliminarComprobante($idAquisicion);
+        // print_r($respuesta);
+        if ($respuesta == true) {
+            echo json_encode(
+                array(
+                    "sucess" => true,
+                    "exec" => "eliminarComprobante",
+                    "msg" => "Se ha eliminado de forma correcta!!",
+                )
+            );
+        } else {
+            echo json_encode(
+                array(
+                    "error" => true,
+                    "exec" => "actualizacion",
+                    "msg" => "Ah ocurrido un error",
+                )
+            );
+        }
+    }
 
 
 
@@ -110,39 +111,27 @@ class ComprobanteAjax
                 )
             );
         }
-
-
-
-        // $datos = array(
-        //     'idTipoComprobante' => $_POST['idTipoComprobante'],
-        //     'sucursal' => $_POST['sucursal'],
-        //     'vencimiento' => $_POST['vencimiento'],
-        //     'inicio' => $_POST['inicio'],
-        //     'final' => $_POST['final'],
-        //     'secuencia' => $_POST['secuencia'],
-        //     'estado' => $_POST['estado'],
-        // );
-
-
-        // $respuesta  = ComprobanteModel::addComprobante($datos);
-
-        // // print_r($respuesta);
-        // // die;
-        // // echo "registrado";
-        // echo json_encode($respuesta);
     }
 
-
-
-
-    public function getTipoComprobante()
+    public function getComprobante()
     {
 
-        $idTipoComprobante = $_POST['idTipoComprobante'];
-        $respuesta  = ComprobanteAjax::getTipoComprobante($idTipoComprobante);
+        $idAquisicion = $_POST['idAquisicion'];
+        $respuesta  = ComprobanteModel::getComprobante($idAquisicion);
 
         echo json_encode($respuesta);
     }
+
+
+
+    // public function getTipoComprobante()
+    // {
+
+    //     $idAquisicion = $_POST['idAquisicion'];
+    //     $respuesta  = ComprobanteAjax::getTipoComprobante($idAquisicion);
+
+    //     echo json_encode($respuesta);
+    // }
 }
 
 
@@ -178,14 +167,14 @@ if (isset($_GET['exec']) && !empty($_GET['exec'])) {
             break;
 
         case 'getTipoComprobante':
-            $ejecutar->getTipoComprobante();
+            $ejecutar->getComprobante();
             // echo "hola mundo";
             break;
 
-            // case 'eliminarEmpleado':
-            //   $ejecutar->eliminarEmpleado();
-            //   // echo "hola mundo";
-            //   break;
+        case 'eliminarComprobante':
+            $ejecutar->eliminarComprobante();
+            // echo "hola mundo";
+            break;
         case 'funcion2':
             $b->accion2();
             break;

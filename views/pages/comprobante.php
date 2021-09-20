@@ -81,7 +81,7 @@ $tipoComprobante = ComprobanteModel::getTipoComprobante(null, null);
                                     echo '<td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                         <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalCategoria" idTipoComprobante="' . $value["idTipoComprobante"] . '">Editar</button>
-                                        <button type="button" class="btn btn-danger btn-eliminar"  idTipoComprobante="' . $value["idTipoComprobante"] . '">Eliminar</button>
+                                        <button type="button" class="btn btn-danger btn-eliminar"  idAquisicion="' . $value["idAquisicion"] . '">Eliminar</button>
                                     </div>
                                         </td>';
                                     echo '</tr>';
@@ -113,7 +113,7 @@ $tipoComprobante = ComprobanteModel::getTipoComprobante(null, null);
                     <div class="card hovercard">
                         <div class="card-body">
                             <div class="row">
-                                <input type="hidden" name="idTipoComprobante" id="idTipoComprobante" value="0">
+                                <input type="hidden" name="comprobante" id="comprobante" value="0">
 
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
@@ -221,7 +221,7 @@ $tipoComprobante = ComprobanteModel::getTipoComprobante(null, null);
                                     <div class="form-group">
                                         <label for="estado">Estado</label>
                                         <select id="estado" class="form-control" name="estado" required>
-                                            <option value="1" selected>Activo</option>
+                                            <option value="1">Activo</option>
                                             <option value="0">Inactivo</option>
                                         </select>
                                     </div>

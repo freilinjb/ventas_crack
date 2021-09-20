@@ -9,9 +9,9 @@ class ComprobanteController
   }
 
 
-  static public function getComprobante($idTipoComprobante = null)
+  static public function getComprobante($idAquisicion = null)
   {
-    $respuesta = ComprobanteModel::getComprobante($idTipoComprobante);
+    $respuesta = ComprobanteModel::getComprobante($idAquisicion);
     return $respuesta;
   }
 

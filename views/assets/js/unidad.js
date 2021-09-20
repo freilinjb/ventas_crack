@@ -49,7 +49,7 @@ $(function () {
           console.log('registrarUnidad');
         }
 
-        //return;
+        // return;
         // dato.append("exec", 'registrarEmpleado');
         dato.append("nombre", $("#nombre").val());
         dato.append("estado", $("#estado").val());
@@ -97,57 +97,74 @@ $(function () {
     console.log('click');
   });
 
+
+
+
+
   //ELIMINAR UNIDAD
-  $("#empleados").on("click", ".btn-eliminar", function () {
-    const idEmpleado = $(this).attr("idEmpleado");
-    console.log('idEmpleado: ', idEmpleado);
+
+  $('.btn-eliminar').click(function () {
+
+    const idUnidad = $(this).attr('idUnidad')
+
     Swal.fire({
-      title: 'Estas seguro?',
-      text: "Desea eliminar este empleado!",
+      title: 'Seguro ?',
+      text: 'Seguro que quiere Elminarl@!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminarlo !',
+      confirmButtonText: 'Si, Eliminarlo!',
       cancelButtonText: 'Cancelar'
+
     }).then((result) => {
       if (result.isConfirmed) {
-        const data = new FormData();
-        data.append("exec", 'eliminarEmpleado');
-        data.append("idEmpleado", idEmpleado);
 
-        $.ajax({
-          url: "ajax/EmpleadoAjax.php",
-          method: "POST",
-          data: data,
-          cache: false,
-          contentType: false,
-          processData: false,
-          dataType: "json",
-          success: function (respuesta) {
-            if (Number(respuesta.status) == 200) {
+        $.post(
+          // console.log('llegamos qui'),
+
+          "ajax/UnidadAjax.php?exec=eliminarUnidad",
+
+          console.log('llegamos qui'),
+          {
+
+            idUnidad: idUnidad
+          },
+          function (response) {
+
+            if (response.sucess === true) {   //Verificar bien ese ssucess o sucess
               Swal.fire(
-                'Eliminado!',
-                'El empleado ha sido eliminado de forma correcta.',
-                'success'
+                'Eliminado!!',
+                `${response.msg}`,
+                'sucess'                     ////
               ).then((result) => {
-                location.reload();
+                if (result.isConfirmed) {
+                  location.reload();
+                }
               })
             } else {
-              Swal.fire("Ok!", "Ah ocurrido un error!", "error").then((result) => {
-                location.reload();
-              });
+              Swal.fire({
+                icon: 'Error',
+                title: 'Error',
+                text: 'Ah Oocurrido un bobo, Comuniquese con El Crack!!',
+              })
             }
+            console.log("Response: ", response);
+
           },
-        });
+          "json"
+        );
       }
-    });
+    })
   });
 
 
 
+
+
+
   //EDITAR EMPLEADOS
-  $("#empleados").on("click", ".btn-editar", function () {
+  $("#unidades").on("click", ".btn-editar", function () {
     console.log($(".form-control").val());
 
     const idUnidad = $(this).attr("idUnidad");

@@ -41,7 +41,7 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                                 <strong> + </strong> Cliente
                             </button>
                         </div>
-                        <table id="empleados" class="table table-bordered table-striped table-hover">
+                        <table id="tabla_cliente" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -51,6 +51,12 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                                     <th>Tipo Comprobante</th>
                                     <th>Correo</th>
                                     <th>Telefono</th>
+                                    <th>Dias Credito</th>
+                                    <th>Limite Credito</th>
+                                    <th>Aplica Descuento</th>
+                                    <th>Descuento</th>
+                                    <th>Provincia</th>
+                                    <th>Ciudad</th>
                                     <th>Direccion</th>
                                     <th>Observacion</th>
                                     <th>Estado</th>
@@ -59,30 +65,30 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($empleado as $index => $value) {
-                                    $estado = null;
-                                    if ($value["estado"] == 'Activo') {
-                                        $estado = "<span class='badge badge-primary'>" . $value["estado"] . "</span>";
-                                    } else {
-                                        $estado = "<span class='badge badge-danger'>" . $value["estado"] . "</span>";
-                                    }
-                                    echo '<tr>';
-                                    echo '<td>' . ($index + 1) . '</td>';
-                                    echo '<td>' . $value["user"] . '</td>';
-                                    echo '<td>' . $value["nombre"] . '</td>';
-                                    echo '<td>' . $value["apellido"] . '</td>';
-                                    echo '<td>' . $value["fechaNaci"] . '</td>';
-                                    echo '<td>' . $value["correo"] . '</td>';
-                                    echo '<td>' . $value["telefono"] . '</td>';
-                                    echo '<td>' . $estado  . '</td>';
-                                    echo '<td>
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalEmployeeRegister" idEmpleado="' . $value["idEmpleado"] . '">Editar</button>
-                                        <button type="button" class="btn btn-danger btn-eliminar"  idEmpleado="' . $value["idEmpleado"] . '">Eliminar</button>
-                                    </div>
-                                        </td>';
-                                    echo '</tr>';
-                                }
+                                // foreach ($empleado as $index => $value) {
+                                //     $estado = null;
+                                //     if ($value["estado"] == 'Activo') {
+                                //         $estado = "<span class='badge badge-primary'>" . $value["estado"] . "</span>";
+                                //     } else {
+                                //         $estado = "<span class='badge badge-danger'>" . $value["estado"] . "</span>";
+                                //     }
+                                //     echo '<tr>';
+                                //     echo '<td>' . ($index + 1) . '</td>';
+                                //     echo '<td>' . $value["user"] . '</td>';
+                                //     echo '<td>' . $value["nombre"] . '</td>';
+                                //     echo '<td>' . $value["apellido"] . '</td>';
+                                //     echo '<td>' . $value["fechaNaci"] . '</td>';
+                                //     echo '<td>' . $value["correo"] . '</td>';
+                                //     echo '<td>' . $value["telefono"] . '</td>';
+                                //     echo '<td>' . $estado  . '</td>';
+                                //     echo '<td>
+                                //         <div class="btn-group" role="group" aria-label="Basic example">
+                                //         <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalEmployeeRegister" idEmpleado="' . $value["idEmpleado"] . '">Editar</button>
+                                //         <button type="button" class="btn btn-danger btn-eliminar"  idEmpleado="' . $value["idEmpleado"] . '">Eliminar</button>
+                                //     </div>
+                                //         </td>';
+                                //     echo '</tr>';
+                                // }
                                 ?>
                             </tbody>
                         </table>
@@ -121,20 +127,12 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                                         <!-- /.input group -->
                                     </div>
                                 </div>
-                                <div class="col-6-lg col-xl-6 col-sm-12">
-                                    <!-- Date dd/mm/yyyy -->
-                                    <div class="form-group">
-                                        <label>Apellido</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="apellido" id="apellido" value="crack2" placeholder="Ingrese el apellido" autocomplete="off">
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                </div>
+
+
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Sexo</label>
-                                        <select class="form-control" name="sexo" id="sexo">
+                                        <label>Tipo Identificacion</label>
+                                        <select class="form-control" name="tipoIdentificacion" id="tipoIdentificacion">
                                             <option value="0" disabled selected>Seleccione una opción</option>
                                             <?php foreach ($sexo as $key) {
                                                 echo '<option value="' . $key['idSexo'] . '">' . $key['sexo'] . '</option>';
@@ -142,58 +140,43 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col-6-lg col-xl-6 col-sm-12">
+                                    <!-- Date dd/mm/yyyy -->
                                     <div class="form-group">
-                                        <label>Identificacion</label>
+                                        <label>identificacion</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="identificacion" id="identificacion" value="03105697175" placeholder="Ingrese el numero de ducumento" autocomplete="off">
+                                            <input type="text" class="form-control" name="identificacion" id="identificacion" value="123213123" placeholder="Ingrese el apellido" autocomplete="off">
                                         </div>
+                                        <!-- /.input group -->
                                     </div>
                                 </div>
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Usuario</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" name="usuario" id="usuario" autocomplete="off" value="frack" placeholder="Ingrese el nobre de usuario">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6-lg col-xl-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label>Contraseña</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" name="clave" id="clave" autocomplete="off" value="1423" placeholder="Ingrese la contraseña">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6-lg col-xl-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label for="tipoUsuario">Tipo de usuario</label>
-                                        <select class="form-control" name="tipoUsuario" id="tipoUsuario" required>
+                                        <label>Tipo Comprobante</label>
+                                        <select class="form-control" name="tipoComprobante" id="tipoComprobante">
                                             <option value="0" disabled selected>Seleccione una opción</option>
-                                            <?php foreach ($tipoUsuario as $key) {
-                                                echo '<option value="' . $key['idTipo'] . '">' . $key['descriccion'] . '</option>';
+                                            <?php foreach ($sexo as $key) {
+                                                echo '<option value="' . $key['idSexo'] . '">' . $key['sexo'] . '</option>';
                                             }  ?>
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Telefono</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" name="telefono" id="telefono" value="849-565-2312" autocomplete="off">
-                                        </div>
+                                        <label>Vendedor</label>
+                                        <select class="form-control" name="empleado" id="empleado">
+                                            <option value="0" disabled selected>Seleccione una opción</option>
+                                            <?php foreach ($sexo as $key) {
+                                                echo '<option value="' . $key['idEmpleado'] . '">' . $key['empleado'] . '</option>';
+                                            }  ?>
+                                        </select>
                                     </div>
                                 </div>
+
+
+
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Correo</label>
@@ -205,19 +188,116 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6-lg col-xl-6 col-sm-12">
-                                    <!-- Date dd/mm/yyyy -->
-                                    <div class="form-group">
-                                        <label>Fecha de nacimiento:</label>
 
+
+                                <div class="col-6-lg col-xl-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Telefono</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                             </div>
-                                            <input type="date" class="form-control" name="fechaNacimiento" id="fechaNacimiento" value="">
+                                            <input type="text" class="form-control" name="telefono" id="telefono" value="849-565-2312" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
+
+
+                                <div class="col-6-lg col-xl-6 col-sm-12">
+                                    <!-- Date dd/mm/yyyy -->
+                                    <div class="form-group">
+                                        <label>Dias Credito</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="diasCredito" id="diasCredito" value="12" placeholder="Ingrese dias " autocomplete="off">
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+                                </div>
+
+
+                                <div class="col-6-lg col-xl-6 col-sm-12">
+                                    <!-- Date dd/mm/yyyy -->
+                                    <div class="form-group">
+                                        <label>limite Credito</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="limiteCredito" id="limiteCredito" value="12" placeholder="Ingrese el limiteCredito" autocomplete="off">
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="estado">Aplica Descuento ?</label>
+                                        <select id="estado" class="form-control" name="estado" required>
+                                            <option value="1" selected>Si</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <label>------Descuento------- </label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">$</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="limiteCredito" id="limiteCredito" value="" placeholder="Ingrese el limiteCredito" autocomplete="off">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">.00</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-6-lg col-xl-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>provincia</label>
+                                        <select class="form-control" name="provincia" id="provincia">
+                                            <option value="0" disabled selected>Seleccione una opción</option>
+                                            <?php foreach ($sexo as $key) {
+                                                echo '<option value="' . $key['idProvincia'] . '">' . $key['provincia'] . '</option>';
+                                            }  ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-6-lg col-xl-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Ciudad</label>
+                                        <select class="form-control" name="ciudad" id="ciudad">
+                                            <option value="0" disabled selected>Seleccione una opción</option>
+                                            <?php foreach ($sexo as $key) {
+                                                echo '<option value="' . $key['idCiudad'] . '">' . $key['ciudad'] . '</option>';
+                                            }  ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <!-- Date dd/mm/yyyy -->
+                                    <div class="form-group">
+                                        <label>Direccion</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="direccion" id="direccion" value="Muchs coass de IT" placeholder="Ingrese la Direccion" autocomplete="off">
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>observacion</label>
+                                        <div class="input-group mb-3">
+                                            <textarea name="observacion" id="observacion" class="form-control" value="es responsable con tu pedidos" placeholder="Ingrese una Observacion" cols="30" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
                                         <label for="estado">Estado</label>
@@ -245,7 +325,7 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
 <!-- END MODAL REGISTRAR EMPLEADO-->
 
 <!-- SCRIPT PERSONAL -->
-<script src="views/assets/js/empleado.js"></script>
+<script src="views/assets/js/cliente.js"></script>
 <!-- DataTables  & Plugins -->
 
 <link rel="stylesheet" href="views/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">

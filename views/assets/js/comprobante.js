@@ -1,188 +1,166 @@
+// ENVENTO PARA ELIMINAR
 $(function () {
 
-  //VALIDACION
-  $(function () {
-    $.validator.setDefaults({
-      submitHandler: function () {
-        alert("Form successful submitted!");
-      },
-    });
+  $('.btn-eliminar').click(function () {
 
-    $("#formCategoria").validate({
-      rules: {
+    const idAquisicion = $(this).attr('idAquisicion')
 
-        nombre: {
-          required: true,
-          minlength: 2,
-        },
-        estado: {
-          required: true,
-        },
-      },
-      messages: {
-        terms: "Please accept our terms",
-      },
-      errorElement: "span",
-      errorPlacement: function (error, element) {
-        error.addClass("invalid-feedback");
-        element.closest(".form-group").append(error);
-      },
-      highlight: function (element, errorClass, validClass) {
-        $(element).addClass("is-invalid");
-      },
-      unhighlight: function (element, errorClass, validClass) {
-        $(element).removeClass("is-invalid");
-      },
-
-      submitHandler: function (e) {
-        // console.log('evento: ', e);
-        const dato = new FormData();
-        let idCategoria = 0;
-        idCategoria = Number($('#idCategoria').val());
-
-        if (idCategoria > 0) {
-          dato.append("exec", 'actualizandoCategoria');
-          dato.append("idCategoria", Number($('#idCategoria').val()));
-          console.log('actualizandoEmpleado');
-        } else {
-          dato.append("exec", 'registrarCategoria');
-          console.log('registrarCategoria');
-        }
-
-        //return;
-        // dato.append("exec", 'registrarEmpleado');
-        dato.append("nombre", $("#nombre").val());
-        dato.append("estado", $("#estado").val());
-
-        console.log('daara: ', dato);
-        $.ajax({
-          url: "ajax/CategoriaAjax.php",
-          method: "POST",
-          data: dato,
-          cache: false,
-          contentType: false,
-          processData: false,
-          dataType: "json",
-          success: function (respuesta) {
-            console.log('respuesta: ', respuesta);
-            // return;
-            if (respuesta == true) {
-              Swal.fire("Ok!", `${idCategoria > 0 ? 'Se ha actualizado correctamente!' : 'Se ha guardado correctamente!'}`, "success").then((result) => {
-                location.reload();
-              });
-            } else {
-              Swal.fire("Ok!", "Ah ocurrido un error!", "error").then((result) => {
-                location.reload();
-              });
-            }
-
-            // console.log(respuesta.status);
-            $(".form-control").val("");
-            $("#close").click();
-
-            $("#idCategoria").val("0");
-            $("#nombre").val("");
-            $("#estado").val(1);
-          },
-        });
-      },
-    });
-  });
-
-  //SETEA EL CAMPO DE idEmpleado que esta oculto
-  $('#registrarCategoria').click(function () {
-    $('#idCategoria').val(0);
-    $("#nombre").val("");
-    $("#estado").val(1);
-    console.log('click');
-  });
-
-  //ELIMINAR EMPLEADO
-  $("#empleados").on("click", ".btn-eliminar", function () {
-    const idEmpleado = $(this).attr("idEmpleado");
-    console.log('idEmpleado: ', idEmpleado);
     Swal.fire({
-      title: 'Estas seguro?',
-      text: "Desea eliminar este empleado!",
+      title: 'Seguro ?',
+      text: 'Seguro que quiere Elminarl@!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminarlo !',
+      confirmButtonText: 'Si, Eliminarlo!',
       cancelButtonText: 'Cancelar'
+
     }).then((result) => {
       if (result.isConfirmed) {
-        const data = new FormData();
-        data.append("exec", 'eliminarEmpleado');
-        data.append("idEmpleado", idEmpleado);
 
-        $.ajax({
-          url: "ajax/EmpleadoAjax.php",
-          method: "POST",
-          data: data,
-          cache: false,
-          contentType: false,
-          processData: false,
-          dataType: "json",
-          success: function (respuesta) {
-            if (Number(respuesta.status) == 200) {
+        $.post(
+
+          "ajax/ComprobanteAjax.php?exec=eliminarComprobante",
+          {
+
+            idAquisicion: idAquisicion
+          },
+          function (response) {
+
+            if (response.sucess === true) {   //Verificar bien ese ssucess o sucess
               Swal.fire(
-                'Eliminado!',
-                'El empleado ha sido eliminado de forma correcta.',
-                'success'
+                'Eliminado!!',
+                `${response.msg}`,
+                'sucess'                     ////
               ).then((result) => {
-                location.reload();
+                if (result.isConfirmed) {
+                  location.reload();
+                }
               })
             } else {
-              Swal.fire("Ok!", "Ah ocurrido un error!", "error").then((result) => {
-                location.reload();
-              });
+              Swal.fire({
+                icon: 'Error',
+                title: 'Error',
+                text: 'Ah Oocurrido un bobo, Comuniquese con El Crack!!',
+              })
             }
+            console.log("Response: ", response);
+
           },
-        });
+          "json"
+        );
       }
-    });
+    })
   });
 
 
+  //////////////////////////
+  /////////////////////////
+  ////////////////////////
+  ///////////////////////
+  //////////////////////
+  /////////////////////
 
-  //EDITAR EMPLEADOS
-  $("#empleados").on("click", ".btn-editar", function () {
-    console.log($(".form-control").val());
 
-    const idCategoria = $(this).attr("idCategoria");
-    console.log('idCategoria: ', idCategoria);
-    $('#idCategoria').val(idCategoria);
+  ///EVENTO DE ACTUALIZAR
+
+
+  $(".btn-editar").click(function () {
+
+    // console.log("click editando");
+
+
+    const idAquisicion = $(this).attr("idAquisicion");
+    console.log(`idAquisicion: ${idAquisicion}`);
+    $('#idAquisicion').val(idAquisicion);
 
     const data = new FormData();
-    data.append("exec", 'getCategoria');
-    data.append("idCategoria", idCategoria);
-
-    $.ajax({
-      url: "ajax/CategoriaAjax.php",
-      method: "POST",
-      data: data,
-      cache: false,
-      contentType: false,
-      processData: false,
-      dataType: "json",
-      success: function (respuesta) {
-        console.log('editarRespuesta: ', respuesta);
+    data.append('idAquisicion', idAquisicion);
 
 
-        $("#idCategoria").val(respuesta["idCategoria"]);
-        $("#nombre").val(respuesta["categoria"]);
-        // $("#apellido").val(respuesta["apellido"]);
-        // $("#sexo").val(Number(respuesta["idSexo"]));
-        // $("#identificacion").val(respuesta["identificacion"]);
-        // $("#usuario").val(respuesta["usuario"]);
-        // $("#clave").val(respuesta["clave"]);
-        // $("#tipoUsuario").val(Number(respuesta["idTipoUsuario"]));
-        // $("#telefono").val(respuesta["telefono"]);
-        // $("#Correo").val(respuesta["Correo"]);
-        // $("#fechaNacimiento").val(respuesta["fechaNacimiento"]);
-        $("#estado").val(respuesta["estado"]);
+    $.post(
+      "ajax/ComprobanteAjax.php?exec=getConprobante",
+      $("#formComprobante").serialize(),
+      function (response) {
+
+        $("#idAquisicion").val(response.idAquisicion);
+        $("#idTipoComprobante").val(response.idTipoComprobante);
+        $("#sucursal").val(response.sucursal);
+        $("#vencimiento").val(response.vencimiento);
+        $("#inicio").val(response.inicio);
+        $("#final").val(response.final);
+        $("#secuencia").val(response.secuencia);
+        $("#estado").val(response.estado);
+        console.log("Response: ", response);
+
+        // return;
       },
-    });
+      "json"
+    );
+
   });
+
+  $("#formComprobante").validate({
+    invalidHandler: function (event, validator) {
+      //this refers to the form
+
+      var errors = validator.numberOfInvalids();
+      if (errors) {
+        var message =
+          errors == 1
+            ? "You missed 1 field. It has been highlighted"
+            : "You missed " + errors + " fields. They have been highlighted";
+        $("div.error span").html(message);
+        $("div.error").show();
+
+      } else {
+        $("div.error").hide();
+      }
+    },
+  });
+
+
+
+
+  $("#formComprobante").on("submit", function (e) {
+    var isvalid = $("#formComprobante").valid();
+    if (isvalid) {
+      e.preventDefault();
+      const exec = Number($('#comprobante').val()) == 0 ? 'addComprobante' : 'editComprobante';
+
+      console.log('Exec: ', exec);
+      // return;
+      $.post(
+        `ajax/ComprobanteAjax.php?exec=${exec}`,
+        $("#formComprobante").serialize(),
+        function (response) {
+          // return;
+          if (response.ssucess) {
+            $('#formComprobante').hide();
+            Swal.fire(
+              "Notificacion!",
+              `${response.msg}!`,
+              "success"
+            ).then((result) => {
+              if (result.isConfirmed) {
+                location.reload();
+              }
+            })
+          }
+          console.log("Response: ", response);
+        },
+        "json"
+      );
+
+    }
+  });
+
+
+
 });
+
+
+
+
+
+

@@ -30,6 +30,41 @@ class UnidadModel
     }
   }
 
+
+  static public function eliminarUnidad($idUnidad)
+  {
+    // echo "hola prueba";die;
+
+    $respuesta = Conection::connect()->prepare("
+         SELECT 
+              un.idUnidad,
+              un.descripcion AS unidad, 
+              un.estado  
+             FROM unidad un WHERE un.idUnidad = " . $idUnidad . "
+        LIMIT 1");
+    $respuesta->execute();
+    $records = $respuesta->fetchAll();
+
+    $idUnidad = $records[0]['idUnidad'];
+
+
+    if (count($records) > 0) {
+
+      Conection::connect()->prepare("DELETE FROM unidad WHERE idUnidad = $idUnidad")->execute();
+    }
+
+    return (count($records) > 0) ? true : false;
+  }
+
+
+
+
+
+
+
+
+
+
   static public function registrarUnidad($datos)
   {
 

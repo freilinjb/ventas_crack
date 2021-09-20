@@ -39,7 +39,7 @@ $unidad = UnidadController::getUnidad();
                 <strong> + </strong> Unidad
               </button>
             </div>
-            <table id="empleados" class="table table-bordered table-striped table-hover">
+            <table id="unidades" class="table table-bordered table-striped table-hover">
               <thead>
                 <tr>
                   <th>#</th>
@@ -169,7 +169,7 @@ $unidad = UnidadController::getUnidad();
 <!-- Page specific script -->
 <script>
   $(function() {
-    $("#empleados").DataTable({
+    $("#unidades").DataTable({
       "responsive": true,
       "lengthChange": false,
       "autoWidth": false,
@@ -177,6 +177,6 @@ $unidad = UnidadController::getUnidad();
       "paging": true,
       "pageLength": 7,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-    }).buttons().container().appendTo('#empleados_wrapper  .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#unidades_wrapper  .col-md-6:eq(0)');
   });
 </script>

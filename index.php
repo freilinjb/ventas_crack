@@ -28,6 +28,8 @@ require_once "Controllers/ClienteController.php";
 
 require_once "Controllers/ProvedoresController.php";
 
+require_once "Controllers/ComprobanteController.php";
+
 
 
 
@@ -60,6 +62,10 @@ require_once "Models/ClienteModel.php";
 
 //PROVEEDOR
 require_once "Models/ProvedoresModel.php";
+
+
+require_once "Models/ComprobanteModel.php";
+
 
 $template = new TemplateController();
 $template->template();
