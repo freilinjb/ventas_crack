@@ -53,12 +53,12 @@ class CategoriaAjax
         echo json_encode($respuesta);
     }
 
-    public function eliminarEmpleado()
+    public function eliminarCategoria()
     {
-        if (preg_match('/^[0-9]+$/', $_POST['idEmpleado'])) {
-            $idEmpleado = $_POST['idEmpleado'];
+        if (preg_match('/^[0-9]+$/', $_POST['idCategoria'])) {
+            $idCategoria = $_POST['idCategoria'];
             // echo "idEmpleado; " . $idEmpleado;die;
-            $respuesta  = EmpleadoModel::eliminarEmpleado($idEmpleado);
+            $respuesta  = EmpleadoModel::eliminarEmpleado($idCategoria);
 
             echo json_encode($respuesta);
         } else {
@@ -69,7 +69,9 @@ class CategoriaAjax
 }
 
 
-
+// print_r($_GET);
+// print_r($_POST);
+// die;
 /*=============================================
 Comprobamos que el valor no venga vacío
 =============================================*/
@@ -94,10 +96,10 @@ if (isset($_POST['exec']) && !empty($_POST['exec'])) {
             // echo "hola mundo";
             break;
 
-            // case 'eliminarEmpleado':
-            //     $ejecutar->eliminarEmpleado();
-            //     // echo "hola mundo";
-            //     break;
+        case 'eliminarCategoria':
+            $ejecutar->eliminarCategoria();
+            echo "hola mundo";
+            break;
         case 'funcion2':
             $b->accion2();
             break;

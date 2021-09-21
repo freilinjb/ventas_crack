@@ -98,12 +98,12 @@ $(function () {
   });
 
   //ELIMINAR EMPLEADO
-  $("#empleados").on("click", ".btn-eliminar", function () {
-    const idEmpleado = $(this).attr("idEmpleado");
-    console.log('idEmpleado: ', idEmpleado);
+  $("#categoria").on("click", ".btn-eliminar", function () {
+    const idCategoria = $(this).attr("idCategoria");
+    console.log('idCategoria: ', idCategoria);
     Swal.fire({
       title: 'Estas seguro?',
-      text: "Desea eliminar este empleado!",
+      text: "Desea eliminar !",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -113,11 +113,11 @@ $(function () {
     }).then((result) => {
       if (result.isConfirmed) {
         const data = new FormData();
-        data.append("exec", 'eliminarEmpleado');
-        data.append("idEmpleado", idEmpleado);
+        data.append("exec", 'eliminarCategoria');
+        data.append("idCategoria", idCategoria);
 
         $.ajax({
-          url: "ajax/EmpleadoAjax.php",
+          url: "ajax/CategoriaAjax.php",
           method: "POST",
           data: data,
           cache: false,
@@ -146,8 +146,8 @@ $(function () {
 
 
 
-  //EDITAR EMPLEADOS
-  $("#empleados").on("click", ".btn-editar", function () {
+  //EDITAR categoria
+  $("#categoria").on("click", ".btn-editar", function () {
     console.log($(".form-control").val());
 
     const idCategoria = $(this).attr("idCategoria");
