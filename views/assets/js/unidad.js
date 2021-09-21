@@ -121,18 +121,19 @@ $(function () {
       if (result.isConfirmed) {
 
         $.post(
-          // console.log('llegamos qui'),
 
           "ajax/UnidadAjax.php?exec=eliminarUnidad",
 
-          console.log('llegamos qui'),
           {
 
             idUnidad: idUnidad
           },
-          function (response) {
 
-            if (response.sucess === true) {   //Verificar bien ese ssucess o sucess
+          // console.log('llegamos aqui'),
+          function (response) {
+            // console.log(response);
+            // return;
+            if (response.sucess === true) {   //
               Swal.fire(
                 'Eliminado!!',
                 `${response.msg}`,

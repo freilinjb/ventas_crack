@@ -54,10 +54,11 @@ class UnidadAjax
 
     $idUnidad = $_POST['idUnidad'];
 
-    print_r($_POST);
-    die;
+    // print_r($_POST);
+    // die;
+
     $respuesta = UnidadModel::eliminarUnidad($idUnidad);
-    // print_r($respuesta);
+    //   print_r($respuesta);
     if ($respuesta == true) {
       echo json_encode(
         array(
@@ -78,6 +79,10 @@ class UnidadAjax
   }
 }
 
+
+// print_r($_GET);
+// print_r($_POST);
+// die;
 
 
 /*=============================================
@@ -113,7 +118,7 @@ if (isset($_POST['exec']) && !empty($_POST['exec'])) {
       // echo "hola mundo";
       break;
 
-    case 'eliminarEmpleado':
+    case 'eliminarUnidad':
       $ejecutar->eliminarUnidad();
       // echo "hola mundo";
       break;

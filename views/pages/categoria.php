@@ -39,7 +39,7 @@ $categorias = CategoriaController::getCategoria();
                                 <strong> + </strong> Categoria
                             </button>
                         </div>
-                        <table id="empleados" class="table table-bordered table-striped table-hover">
+                        <table id="categoria" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -169,7 +169,7 @@ $categorias = CategoriaController::getCategoria();
 <!-- Page specific script -->
 <script>
     $(function() {
-        $("#empleados").DataTable({
+        $("#categoria").DataTable({
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
@@ -177,6 +177,6 @@ $categorias = CategoriaController::getCategoria();
             "paging": true,
             "pageLength": 7,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-        }).buttons().container().appendTo('#empleados_wrapper  .col-md-6:eq(0)');
+        }).buttons().container().appendTo('#categoria_wrapper  .col-md-6:eq(0)');
     });
 </script>

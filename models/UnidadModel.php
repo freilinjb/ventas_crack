@@ -33,7 +33,8 @@ class UnidadModel
 
   static public function eliminarUnidad($idUnidad)
   {
-    // echo "hola prueba";die;
+    // echo "hola prueba";
+    // die;
 
     $respuesta = Conection::connect()->prepare("
          SELECT 

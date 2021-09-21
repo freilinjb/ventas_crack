@@ -53,4 +53,16 @@ class CategoriaModel
       //  $respuesta->fetch();
     }
   }
+
+
+
+  static public function eliminarCategoria($ID)
+  {
+    echo "hola prueba";
+    die;
+    $data = Conection::connect()->prepare("DELETE FROM categoria  WHERE idCategoria = " . $ID . "");
+
+    $data->execute();
+    return $data->fetch();
+  }
 }
