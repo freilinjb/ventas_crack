@@ -104,7 +104,7 @@ $(function () {
     Swal.fire({
       title: 'Estas seguro?',
       text: "Desea eliminar !",
-      icon: 'warning',
+      icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -125,20 +125,26 @@ $(function () {
           processData: false,
           dataType: "json",
           success: function (respuesta) {
-            if (Number(respuesta.status) == 200) {
+            console.log(respuesta);
+            if (respuesta.success) {
               Swal.fire(
                 'Eliminado!',
-                'El empleado ha sido eliminado de forma correcta.',
+                `${respuesta.msg}.`,
                 'success'
               ).then((result) => {
                 location.reload();
               })
             } else {
-              Swal.fire("Ok!", "Ah ocurrido un error!", "error").then((result) => {
+              Swal.fire("Ok!", `${respuesta.msg}.`, "warning").then((result) => {
                 location.reload();
               });
             }
           },
+          error: function () {
+            Swal.fire("Ok!", "Ah ocurrido un error", "error").then((result) => {
+              location.reload();
+            });
+          }
         });
       }
     });

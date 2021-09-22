@@ -58,11 +58,25 @@ class CategoriaModel
 
   static public function eliminarCategoria($ID)
   {
-    echo "hola prueba";
-    die;
-    $data = Conection::connect()->prepare("DELETE FROM categoria  WHERE idCategoria = " . $ID . "");
+    $exec = Conection::connect()->prepare("SELECT p.idCategoria AS cantidad FROM producto p WHERE p.idCategoria = ?");
+    $exec->bindParam("1", $ID, PDO::PARAM_INT);
+    $exec->execute();
+    $data = $exec->fetch();
 
-    $data->execute();
-    return $data->fetch();
+    if (count($data[0]) == 0) {
+      $exec = Conection::connect()->prepare("DELETE FROM categoria WHERE idCategoria = :idCategoria");
+      $exec->bindParam(":idCategoria", $ID, PDO::PARAM_INT);
+      $exec->execute();
+
+      return array(
+        "msg" => "Se ha borrado de forma correcta",
+        "success" => true
+      );
+    }
+
+    return array(
+      "msg" => "La categoria que intenta eliminar esta asociado a un producto",
+      "success" => false
+    );
   }
 }

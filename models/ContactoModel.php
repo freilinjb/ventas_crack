@@ -4,6 +4,7 @@
 require_once "Conection.php";
 
 
+
 class ContactoModel
 {
   public function getContacto($parame)

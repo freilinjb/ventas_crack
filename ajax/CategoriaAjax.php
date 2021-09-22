@@ -55,15 +55,21 @@ class CategoriaAjax
 
     public function eliminarCategoria()
     {
+
+
         if (preg_match('/^[0-9]+$/', $_POST['idCategoria'])) {
+
             $idCategoria = $_POST['idCategoria'];
-            // echo "idEmpleado; " . $idEmpleado;die;
-            $respuesta  = EmpleadoModel::eliminarEmpleado($idCategoria);
+            // echo "idCategoria; " . $idCategoria;
+            // die;
+            $respuesta  = CategoriaModel::eliminarCategoria($idCategoria);
 
             echo json_encode($respuesta);
         } else {
-            $datos = array("msg" => "Solo se admiten numeros", "status" => 200);
-            echo json_encode($datos);
+            echo json_encode(array(
+                "msg" => "Solo se admiten numeros",
+                "success" => false
+            ));
         }
     }
 }
@@ -98,7 +104,7 @@ if (isset($_POST['exec']) && !empty($_POST['exec'])) {
 
         case 'eliminarCategoria':
             $ejecutar->eliminarCategoria();
-            echo "hola mundo";
+            // echo "hola mundo";
             break;
         case 'funcion2':
             $b->accion2();
