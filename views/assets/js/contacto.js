@@ -120,7 +120,7 @@ $(function () {
     );
   });
 
-  $("#formRegistrarContacto").validate({
+  $("#formContacto").validate({
     invalidHandler: function (event, validator) {
       // 'this' refers to the form
       var errors = validator.numberOfInvalids();
@@ -137,8 +137,8 @@ $(function () {
     },
   });
 
-  $("#formRegistrarContacto").on("submit", function (e) {
-    var isvalid = $("#formRegistrarContacto").valid();
+  $("#formContacto").on("submit", function (e) {
+    var isvalid = $("#formContacto").valid();
     if (isvalid) {
       e.preventDefault();
       const exec = Number($('#idUsuario').val()) == 0 ? 'registrarUsuario' : 'actualizarUsuario';
@@ -147,11 +147,11 @@ $(function () {
       // return;
       $.post(
         `ajax/index.php?c=Contacto&m=registrarContacto`,
-        $("#formRegistrarContacto").serialize(),
+        $("#formContacto").serialize(),
         function (response) {
           // return;
           if (response.ssucess) {
-            $('#formRegistrarContacto').hide();
+            $('#formContacto').hide();
             Swal.fire(
               "Notificacion!",
               `${response.msg}!`,

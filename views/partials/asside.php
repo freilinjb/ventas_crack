@@ -101,13 +101,13 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/ventas_crack/index.php?route=contactos.php" <?php if ($_GET['route'] == "clientes") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
+                                    <a href="/ventas_crack/index.php?route=cliente" <?php if ($_GET['route'] == "clientes") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Cliente</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/ventas_crack/index.php?route=comprobante" <?php if ($_GET['route'] == "comprobante") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
+                                    <a href="/ventas_crack/index.php?route=proveedores" <?php if ($_GET['route'] == "proveedores") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Provedor</p>
                                     </a>

@@ -30,6 +30,12 @@ require_once "Controllers/ProvedoresController.php";
 
 require_once "Controllers/ComprobanteController.php";
 
+require_once "Controllers/ContactoController.php";
+require_once "Controllers/ContactoController.php";
+
+
+
+
 
 
 
@@ -64,7 +70,9 @@ require_once "Models/ClienteModel.php";
 require_once "Models/ProvedoresModel.php";
 
 
-require_once "Models/ComprobanteModel.php";
+require_once "Models/ContactoModel.php";
+
+
 
 
 $template = new TemplateController();

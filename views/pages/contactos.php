@@ -1,18 +1,32 @@
-<?php
-$empleado = EmpleadoController::getEmpleados(null, null);
-$sexo = EmpleadoController::getSexo(null, null);
-$tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
-?>
+<!-- <?php
+      // $empleado = EmpleadoController::getEmpleados(null, null);
+      // $sexo = EmpleadoController::getSexo(null, null);
+      $idTipoComprobante = ContactoController::getIdTipoComprobante(null, null);
+      ?> -->
+
+
 
 <section class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1>Adminiscación de Cliente</h1>
+        <h1>Adminiscación de <?php echo $titulo ?></h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
+
+          <?php
+
+          $titulo = '';
+
+          if (!empty($_GET['type']) && isset($_GET['type']) && ($_GET['type'] === 'cliente' || $_GET['type'] === 'proveedor')) {
+            $titulo = trim($_GET['type']);
+          } else {
+            $titulo = "Contacto";
+          }
+          echo $titulo;
+          ?>
           <!-- <li class="breadcrumb-item"><a href="#">Layout</a></li> -->
           <li class="breadcrumb-item active">Administración de Contacto</li>
         </ol>
@@ -31,14 +45,16 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
           <div class="card-header">
             <h3 class="card-title">
               <i class="fas fa-edit"></i>
-              Registro de Contacto
+              Registro de Nuevo
             </h3>
             s
           </div>
           <div class="card-body">
+            <h5 class="panel-title"><?php echo $titulo ?></h5>
             <div class="">
               <button class="btn btn-info mb-3" data-toggle="modal" data-target="#modalContactoRegister" id="registroContacto">
-                <strong> + </strong> Cliente
+                <i class="icon-database-add"></i> Agregar Nuevo <?php echo $titulo ?>
+                <!-- <strong> + </strong> Nuevo -->
               </button>
             </div>
             <table id="tabla_cliente" class="table table-bordered table-striped table-hover">
@@ -47,48 +63,54 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                   <th>#</th>
 
                   <th>Nombre</th>
-                  <th>identificacion</th>
-                  <th>Tipo Comprobante</th>
+                  <th>Razon Social</th>
+                  <th>Identificacion</th>
                   <th>Correo</th>
                   <th>Telefono</th>
-                  <!-- <th>Dias Credito</th> -->
-                  <!-- <th>Limite Credito</th> -->
-                  <!-- <th>Aplica Descuento</th> -->
-                  <!-- <th>Descuento</th> -->
-                  <th>Provincia</th>
-                  <th>Ciudad</th>
-                  <th>Direccion</th>
-                  <!-- <th>Observacion</th> -->
                   <th>Estado</th>
                   <th>Acción</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                // foreach ($empleado as $index => $value) {
-                //     $estado = null;
-                //     if ($value["estado"] == 'Activo') {
-                //         $estado = "<span class='badge badge-primary'>" . $value["estado"] . "</span>";
-                //     } else {
-                //         $estado = "<span class='badge badge-danger'>" . $value["estado"] . "</span>";
-                //     }
-                //     echo '<tr>';
-                //     echo '<td>' . ($index + 1) . '</td>';
-                //     echo '<td>' . $value["user"] . '</td>';
-                //     echo '<td>' . $value["nombre"] . '</td>';
-                //     echo '<td>' . $value["apellido"] . '</td>';
-                //     echo '<td>' . $value["fechaNaci"] . '</td>';
-                //     echo '<td>' . $value["correo"] . '</td>';
-                //     echo '<td>' . $value["telefono"] . '</td>';
-                //     echo '<td>' . $estado  . '</td>';
-                //     echo '<td>
-                //         <div class="btn-group" role="group" aria-label="Basic example">
-                //         <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalEmployeeRegister" idEmpleado="' . $value["idEmpleado"] . '">Editar</button>
-                //         <button type="button" class="btn btn-danger btn-eliminar"  idEmpleado="' . $value["idEmpleado"] . '">Eliminar</button>
-                //     </div>
-                //         </td>';
-                //     echo '</tr>';
-                // }
+                $parametro = new stdClass();
+                $parametro->esProveedor = false;
+                $parametro->esCliente = false;
+                $parametro->todo = false;
+
+                if ($titulo === "proveedor") {
+                  $parametro->esProveedor = true;
+                } else if ($titulo === "cliente") {
+                  $parametro->esCliente = true;
+                } else {
+                  $parametro->todo = true;
+                }
+
+                $contacto = new ContactoController();
+                $resultados = $contacto->getContacto($parametro);
+                // print_r($_GET);
+                // die;
+                foreach ($resultados as $index => $key) {
+                  $indice = $index + 1;
+                  $estado  = ($key["estado"] == 1) ? '<span class="label label-success label-rounded">
+                      <span class="text-bold">ACTIVO</span>
+                          </span>' : '<span class="label label-danger label-rounded">
+                          <span class="text-bold">INACTIVO</span>';
+                  echo '<td>' . ($index + 1) . '</td>';
+                  echo '<td>' . $value["nombre"] . '</td>';
+                  echo '<td>' . $value["razonSocial"] . '</td>';
+                  echo '<td>' . $value["identificacion"] . '</td>';
+                  echo '<td>' . $value["correo"] . '</td>';
+                  echo '<td>' . $value["telefono"] . '</td>';
+                  echo '<td>' . $estado  . '</td>';
+                  echo '<td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalEmployeeRegister" idEmpleado="' . $value["idEmpleado"] . '">Editar</button>
+                        <button type="button" class="btn btn-danger btn-eliminar"  idEmpleado="' . $value["idEmpleado"] . '">Eliminar</button>
+                    </div>
+                        </td>';
+                  echo '</tr>';
+                }
                 ?>
               </tbody>
             </table>
@@ -156,30 +178,6 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
 
 
                 <div class="col-6-lg col-xl-6 col-sm-12">
-                  <div class="form-group">
-                    <label>Tipo Identificacion</label>
-                    <select class="form-control" name="tipoIdentificacion" id="tipoIdentificacion">
-                      <option value="0" disabled selected>Seleccione una opción</option>
-                      <?php foreach ($sexo as $key) {
-                        echo '<option value="' . $key['idTipoIdentificacion'] . '">' . $key['tipoIdentificacion'] . '</option>';
-                      }  ?>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-6-lg col-xl-6 col-sm-12">
-                  <!-- Date dd/mm/yyyy -->
-                  <div class="form-group">
-                    <label>identificacion</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" name="identificacion" id="identificacion" value="123213123" placeholder="Ingrese  la identificacion" autocomplete="off">
-                    </div>
-                    <!-- /.input group -->
-                  </div>
-                </div>
-
-
-                <div class="col-6-lg col-xl-6 col-sm-12">
                   <!-- Date dd/mm/yyyy -->
                   <div class="form-group">
                     <label>Razon Social</label>
@@ -193,27 +191,31 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
 
                 <div class="col-6-lg col-xl-6 col-sm-12">
                   <div class="form-group">
-                    <label>Tipo Comprobante</label>
-                    <select class="form-control" name="tipoComprobante" id="tipoComprobante">
-                      <option value="0" disabled selected>Seleccione una opción</option>
-                      <?php foreach ($sexo as $key) {
-                        echo '<option value="' . $key['idTipoComprobante'] . '">' . $key['tipoComprobante'] . '</option>';
-                      }  ?>
+                    <label for="idTipoIdentificacion">Tipo de indentificacion</label>
+                    <select id="idTipoIdentificacion" class="form-control" name="idTipoIdentificacion" required>
+                      <option value="1" selected>CEDULA</option>
+                      <option value="2">RNC</option>
+                      <option value="3" selected>PASSPORT</option>
+                      <option value="4">Inactivo</option>
                     </select>
                   </div>
                 </div>
 
+
                 <div class="col-6-lg col-xl-6 col-sm-12">
+                  <!-- Date dd/mm/yyyy -->
                   <div class="form-group">
-                    <label>Vendedor</label>
-                    <select class="form-control" name="empleado" id="empleado">
-                      <option value="0" disabled selected>Seleccione una opción</option>
-                      <?php foreach ($sexo as $key) {
-                        echo '<option value="' . $key['idEmpleado'] . '">' . $key['empleado'] . '</option>';
-                      }  ?>
-                    </select>
+                    <label>identificacion</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" name="identificacion" id="identificacion" value="123213123" placeholder="Ingrese  la identificacion" autocomplete="off">
+                    </div>
+                    <!-- /.input group -->
                   </div>
                 </div>
+
+
+
+
 
 
 
@@ -242,63 +244,19 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                   </div>
                 </div>
 
-                <div class="col-6-lg col-xl-6 col-sm-12">
-                  <div class="form-group">
-                    <label>Celular</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                      </div>
-                      <input type="text" class="form-control" name="celular" id="celular" value="849-565-2312" autocomplete="off">
-                    </div>
-                  </div>
-                </div>
-
 
 
 
 
                 <div class="col-6-lg col-xl-6 col-sm-12">
                   <div class="form-group">
-                    <label>provincia</label>
-                    <select class="form-control" name="provincia" id="provincia">
+                    <label>Tipo Comprobante</label>
+                    <select class="form-control" name="idTipoComprobante" id="idTipoComprobante">
                       <option value="0" disabled selected>Seleccione una opción</option>
-                      <?php foreach ($sexo as $key) {
-                        echo '<option value="' . $key['idProvincia'] . '">' . $key['provincia'] . '</option>';
+                      <?php foreach ($idTipoComprobante as $key) {
+                        echo '<option value="' . $key['idTipoComprobante'] . '">' . $key['tipoComprobante'] . '</option>';
                       }  ?>
                     </select>
-                  </div>
-                </div>
-
-                <div class="col-6-lg col-xl-6 col-sm-12">
-                  <div class="form-group">
-                    <label>Ciudad</label>
-                    <select class="form-control" name="ciudad" id="ciudad">
-                      <option value="0" disabled selected>Seleccione una opción</option>
-                      <?php foreach ($sexo as $key) {
-                        echo '<option value="' . $key['idCiudad'] . '">' . $key['ciudad'] . '</option>';
-                      }  ?>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-sm-12">
-                  <!-- Date dd/mm/yyyy -->
-                  <div class="form-group">
-                    <label>Direccion</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" name="direccion" id="direccion" value="Muchs coass de IT" placeholder="Ingrese la Direccion" autocomplete="off">
-                    </div>
-                    <!-- /.input group -->
-                  </div>
-                </div>
-
-                <div class="col-sm-12">
-                  <div class="form-group">
-                    <label>observacion</label>
-                    <div class="input-group mb-3">
-                      <textarea name="observacion" id="observacion" class="form-control" value="es responsable con tu pedidos" placeholder="Ingrese una Observacion" cols="30" rows="2"></textarea>
-                    </div>
                   </div>
                 </div>
 
@@ -331,7 +289,7 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
 <!-- END MODAL REGISTRAR EMPLEADO-->
 
 <!-- SCRIPT PERSONAL -->
-<script src="views/assets/js/cliente.js"></script>
+<script src="views/assets/js/contacto.js"></script>
 <!-- DataTables  & Plugins -->
 
 <link rel="stylesheet" href="views/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
