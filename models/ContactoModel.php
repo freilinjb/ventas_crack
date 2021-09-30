@@ -37,8 +37,10 @@ class ContactoModel
         t.descripcion AS telefono,
         c.idTipoIdentificacion AS idTipoIdentificacion,
         c.identificacion AS identificacion,
+        c2.encabezado AS tipoComprobante,
     CASE WHEN c.estado IS TRUE THEN 1 ELSE 0 END estado 
     FROM contacto c 
+    LEFT JOIN comprobante c2  ON c2.idTipoComprobante = c.idTipoComprobante
     LEFT JOIN tercero_correo tc ON tc.idTercero = c.idTercero
     LEFT JOIN correo c1 ON tc.idCorreo = c1.idCorreo
     LEFT JOIN tercero_telefono tt ON tt.idTercero = c.idTercero
@@ -80,6 +82,7 @@ class ContactoModel
 
       $stmt = $exec->prepare("INSERT INTO contacto(idTercero, esCliente, esProveedor, nombre, razonSocial, idTipoIdentificacion, identificacion , idTipoComprobante, estado)
          VALUES(:idTercero, :esCliente, :esProveedor, :nombre, :razonSocial, :idTipoIdentificacion, :identificacion, :idTipoComprobante, :estado)");
+      // print_r($_POST);
       $stmt->bindParam(":idTercero", $idTercero, PDO::PARAM_INT);
       $stmt->bindParam(":esCliente", $datos['esCliente'], PDO::PARAM_BOOL);
       $stmt->bindParam(":esProveedor", $datos['esProveedor'], PDO::PARAM_BOOL);

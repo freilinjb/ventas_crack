@@ -2,6 +2,15 @@
       // $empleado = EmpleadoController::getEmpleados(null, null);
       // $sexo = EmpleadoController::getSexo(null, null);
       $idTipoComprobante = ContactoController::getIdTipoComprobante(null, null);
+
+
+
+
+
+      // $contacto = ContactoController::getContacto(null);
+
+
+
       ?> -->
 
 
@@ -90,25 +99,34 @@
                 $resultados = $contacto->getContacto($parametro);
                 // print_r($_GET);
                 // die;
-                foreach ($resultados as $index => $key) {
-                  $indice = $index + 1;
-                  $estado  = ($key["estado"] == 1) ? '<span class="label label-success label-rounded">
-                      <span class="text-bold">ACTIVO</span>
-                          </span>' : '<span class="label label-danger label-rounded">
-                          <span class="text-bold">INACTIVO</span>';
+                foreach ($resultados as $index => $value) {
+                  // $indice = $index + 1;
+                  // $estado  = ($key["estado"] == 1) ? '<span class="label label-success label-rounded">
+                  //     <span class="text-bold">ACTIVO</span>
+                  //         </span>' : '<span class="label label-danger label-rounded">
+                  //         <span class="text-bold">INACTIVO</span>';
+                  $estado = null;
+                  if ($value["estado"] == '1') {
+                    $estado = "<span class='badge badge-primary'>Activo</span>";
+                  } else {
+                    $estado = "<span class='badge badge-danger'>Inactivo</span>";
+                  }
+
+
+
                   echo '<td>' . ($index + 1) . '</td>';
                   echo '<td>' . $value["nombre"] . '</td>';
-                  echo '<td>' . $value["razonSocial"] . '</td>';
+                  echo '<td>' . $value["razon_social"] . '</td>';
                   echo '<td>' . $value["identificacion"] . '</td>';
                   echo '<td>' . $value["correo"] . '</td>';
                   echo '<td>' . $value["telefono"] . '</td>';
                   echo '<td>' . $estado  . '</td>';
                   echo '<td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalEmployeeRegister" idEmpleado="' . $value["idEmpleado"] . '">Editar</button>
-                        <button type="button" class="btn btn-danger btn-eliminar"  idEmpleado="' . $value["idEmpleado"] . '">Eliminar</button>
-                    </div>
-                        </td>';
+                        <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalEmployeeRegister" idEmpleado="' . $value["idContacto"] . '"><i class="fa fa-file"></i></button>
+                        <button type="button" class="btn btn-danger btn-eliminar"  idContacto="' . $value["idContacto"] . '"><i class="fa fa-trash fa-1x"></i></button>
+                                       </div>
+                                        </td>';
                   echo '</tr>';
                 }
                 ?>
@@ -322,7 +340,7 @@
 <!-- Page specific script -->
 <script>
   $(function() {
-    $("#empleados").DataTable({
+    $("#tabla_cliente").DataTable({
       "responsive": true,
       "lengthChange": false,
       "autoWidth": false,
@@ -330,6 +348,6 @@
       "paging": true,
       "pageLength": 7,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-    }).buttons().container().appendTo('#empleados_wrapper  .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#tabla_cliente_wrapper  .col-md-6:eq(0)');
   });
 </script>

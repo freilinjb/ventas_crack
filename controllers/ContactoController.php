@@ -29,7 +29,7 @@ class ContactoController
       "razonSocial" => $_POST['razonSocial'],
       "idTipoIdentificacion" => $_POST['idTipoIdentificacion'],
       "identificacion" => $_POST['identificacion'],
-      "tipoComprobante" => $_POST['tipoComprobante'],
+      "idTipoComprobante" => $_POST['idTipoComprobante'],
       "correo" => $_POST['correo'],
       "telefono" => $_POST['telefono'],
       "estado" => $_POST['estado'],
