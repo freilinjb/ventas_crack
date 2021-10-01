@@ -32,8 +32,8 @@ $(function () {
   /**
    * VENTO PARA ELIMINAR USUARIO
    */
-  $(".eliminarUsuario").click(function () {
-    const idUsuario = $(this).attr("idusuario");
+  $(".btn-eliminar").click(function () {
+    const idUsuario = $(this).attr("idContacto");
 
     Swal.fire({
       title: 'Estas seguro?',

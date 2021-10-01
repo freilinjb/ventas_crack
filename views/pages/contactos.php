@@ -123,7 +123,7 @@
                   echo '<td>' . $estado  . '</td>';
                   echo '<td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalEmployeeRegister" idEmpleado="' . $value["idContacto"] . '"><i class="fa fa-file"></i></button>
+                        <button type="button" class="btn btn-primary btn-editar" data-toggle="modal" data-target="#modalEmployeeRegister" idContacto="' . $value["idContacto"] . '"><i class="fa fa-file"></i></button>
                         <button type="button" class="btn btn-danger btn-eliminar"  idContacto="' . $value["idContacto"] . '"><i class="fa fa-trash fa-1x"></i></button>
                                        </div>
                                         </td>';

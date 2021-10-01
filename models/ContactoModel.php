@@ -204,21 +204,19 @@ class ContactoModel
 
 
 
-  static public function eliminarContacto($idUsuario)
+  static public function eliminarContacto($idContacto)
   {
     $respuesta = Conection::connect()->prepare("
-      SELECT 
-          u.idUsuario,
-          u.usuario,
-          p.idPersona,
-          p.idTercero,
-          COALESCE(tt.idTelefono,0) AS idTelefono,
-          COALESCE(tc.idCorreo,0) AS idCorreo
-      FROM usuario u 
-      INNER JOIN persona p ON p.idPersona = u.idPersona
-      LEFT JOIN tercero_telefono tt ON tt.idTercero = p.idTercero
-      LEFT JOIN tercero_correo tc ON tc.idTercero = p.idTercero
-      WHERE u.idUsuario = " . $idUsuario . "
+    SELECT 
+    c.idContacto,
+    c.idTercero,
+    COALESCE(tt.idTelefono,0) AS idTelefono,
+    COALESCE(tc.idCorreo,0) AS idCorreo
+    FROM contacto c 
+    INNER JOIN tercero t ON t.idTercero = c.idTercero
+    LEFT JOIN tercero_telefono tt ON tt.idTercero = c.idTercero
+    LEFT JOIN tercero_correo tc ON tc.idTercero = c.idTercero
+      WHERE c.idContacto = " . $idContacto . "
       LIMIT 1");
     $respuesta->execute();
     $records = $respuesta->fetchAll();
