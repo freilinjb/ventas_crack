@@ -52,7 +52,7 @@
         <!-- Default box -->
         <div class="card card-info card-outline">
           <div class="card-header">
-            <h3 class="card-title">
+            <h3 class="card-title" id="titulo">
               <i class="fas fa-edit"></i>
               Registro de Nuevo
             </h3>
@@ -156,7 +156,7 @@
           <div class="card hovercard">
             <div class="card-body">
               <div class="row">
-                <input type="hidden" name="contacto" id="contacto" value="0">
+                <input type="hidden" name="idContacto" id="idContacto" value="0">
 
 
                 <div class="col-12">

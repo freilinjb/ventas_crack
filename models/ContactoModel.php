@@ -138,18 +138,15 @@ class ContactoModel
 
     $respuesta = Conection::connect()->prepare("
     SELECT 
-        u.usuario,
-        p.idPersona,
-        p.idTercero,
-        COALESCE(i.idIdentificacion,0) AS idIdentificacion,
-        COALESCE(tt.idTelefono,0) AS idTelefono,
-        COALESCE(tc.idCorreo,0) AS idCorreo
-    FROM usuario u 
-    INNER JOIN persona p ON p.idPersona = u.idPersona
-    LEFT JOIN tercero_telefono tt ON tt.idTercero = p.idTercero
-    LEFT JOIN tercero_correo tc ON tc.idTercero = p.idTercero
-    LEFT JOIN identificacion i ON i.idTercero = p.idTercero
-    WHERE u.idUsuario = " . $datos['idUsuario'] . "
+    c.idContacto,
+    c.idTercero,
+    COALESCE(tt.idTelefono,0) AS idTelefono,
+    COALESCE(tc.idCorreo,0) AS idCorreo
+    FROM contacto c 
+    INNER JOIN tercero t ON t.idTercero = c.idTercero
+    LEFT JOIN tercero_telefono tt ON tt.idTercero = c.idTercero
+    LEFT JOIN tercero_correo tc ON tc.idTercero = c.idTercero
+    WHERE c.idContacto = " . $datos['idContacto'] . "
     LIMIT 1");
     $respuesta->execute();
     $records = $respuesta->fetchAll();
@@ -187,16 +184,9 @@ class ContactoModel
             VALUES($idTercero, $idCorreo)")->execute();
       }
 
-      Conection::connect()->prepare("UPDATE persona p 
-                                        SET p.nombre = '" . $datos['nombre'] . "', 
-                                        p.apellido = '" . $datos['apellido'] . "', 
-                                        p.idSexo = " . $datos['sexo'] . ", 
-                                        p.idTipoIdentificacion = " . $datos['tipoIdentificacion'] . ", 
-                                        p.identificacion = '" . $datos['identificacion'] . "' 
-                                      WHERE p.idPersona = " . $records[0]['idPersona'] . "")->execute();
 
-      $data = Conection::connect()->prepare("UPDATE usuario u SET u.idRol = " . $datos['rol'] . ", u.usuario = '" . $datos['usuario'] . "', u.clave = '" . $datos['clave'] . "', u.activo = " . $datos['estado'] . " 
-       WHERE u.idUsuario = " . $datos['idUsuario'] . "")->execute();
+      $data = Conection::connect()->prepare("UPDATE contacto u SET c.esCliente = " . $datos['esCliente'] . ", c.esProveedor = '" . $datos['esProveedor'] . "', c.nombre = '" . $datos['nombre'] . "', c.razonSocial = " . $datos['razonSocial'] . "', c.idTipoIdentificacion = " . $datos['idTipoIdentificacion'] . "', c.identificacion = " . $datos['identificacion'] .  "', c.idTipoComprobante = " . $datos['idTipoComprobante'] . "', c.activo = " . $datos['estado'] . " 
+       WHERE c.idContacto = " . $datos['idContacto'] . "")->execute();
 
       return $data;
     }
@@ -221,7 +211,7 @@ class ContactoModel
     $respuesta->execute();
     $records = $respuesta->fetchAll();
 
-    // $idUsuario = $records[0]['idUsuario'];
+    $idContacto = $records[0]['idContacto'];
     // $idPersona = $records[0]['idPersona'];
     $idTercero = $records[0]['idTercero'];
     $idTelefono = $records[0]['idTelefono'];
@@ -239,7 +229,7 @@ class ContactoModel
 
       Conection::connect()->prepare("DELETE FROM tercero WHERE idTercero = $idTercero")->execute();
       // Conection::connect()->prepare("DELETE FROM persona WHERE idPersona = $idPersona")->execute();
-      // Conection::connect()->prepare("DELETE FROM usuario WHERE idUsuario = $idUsuario")->execute();
+      Conection::connect()->prepare("DELETE FROM contacto WHERE idContacto = $idContacto")->execute();
     }
 
     return (count($records) > 0) ? true : false;

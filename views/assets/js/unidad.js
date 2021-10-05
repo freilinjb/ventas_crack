@@ -133,7 +133,7 @@ $(function () {
           function (response) {
             // console.log(response);
             // return;
-            if (response.sucess === true) {   //
+            if (response.sucess === false) {   //
               Swal.fire(
                 'Eliminado!!',
                 `${response.msg}`,
