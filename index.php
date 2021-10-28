@@ -31,7 +31,18 @@ require_once "Controllers/ProvedoresController.php";
 require_once "Controllers/ComprobanteController.php";
 
 require_once "Controllers/ContactoController.php";
-// require_once "Controllers/ContactoController.php";
+
+require_once "Controllers/ConsultasController.php";
+
+
+
+
+require_once "Controllers/InventarioController.php";
+
+require_once "Controllers/FacturaController.php";
+
+
+
 
 
 
@@ -73,6 +84,19 @@ require_once "Models/ComprobanteModel.php";
 
 
 require_once "Models/ContactoModel.php";
+
+
+require_once "Models/ConsultasModel.php";
+
+
+
+
+require_once "Models/InventarioModel.php";
+
+require_once "Models/FacturaModel.php";
+
+
+
 
 
 

@@ -36,27 +36,27 @@
                                 <li class="nav-item">
                                     <a href="/ventas_crack/index.php?route=adminEmpleado" <?php if ($_GET['route'] == "adminEmpleado") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Admin. Empleados</p>
+                                        <p>Empleados</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a href="/ventas_crack/index.php?route=clientes" <?php if ($_GET['route'] == "clientes") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Admin. Clientes</p>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="nav-item">
                                     <a href="/ventas_crack/index.php?route=comprobante" <?php if ($_GET['route'] == "comprobante") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Admin. Comprobante</p>
+                                        <p>Comprobante</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a href="/ventas_crack/index.php?route=provedores" <?php if ($_GET['route'] == "provedores") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Admin. Provedores</p>
                                     </a>
-                                </li>
+                                </li> -->
                                 <!-- <li class="nav-item">
                                     <a href="/ventas_crack/index.php?route=administracionProductos" <?php if ($_GET['route'] == "administracionProductos") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
                                         <i class="far fa-circle nav-icon"></i>
@@ -119,8 +119,6 @@
                                     </a>
                                 </li>
 
-
-
                             </ul>
                         </li>
 
@@ -136,7 +134,13 @@
 
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="/ventas_crack/index.php?route=productos" <?php if ($_GET['route'] == "adminEmpleado") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
+                                    <a href="/ventas_crack/index.php?route=almacen" <?php if ($_GET['route'] == "almacen") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p> Almace</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/ventas_crack/index.php?route=productos" <?php if ($_GET['route'] == "productos") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
                                         <i class="far fa-circle nav-icon"></i>
                                         <p> Producto</p>
                                     </a>
@@ -172,7 +176,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
-                                    ADMIN COMPRAS
+                                    COMPRAS
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -183,16 +187,11 @@
                                         <p>Adm. de usuarios</p>
                                     </a>
                                 </li>
+
                                 <li class="nav-item">
-                                    <a href="clientes" class="nav-link">
+                                    <a href="/ventas_crack/index.php?route=facturacion" <?php if ($_GET['route'] == "facturacion") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Registrar cliente</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="employee" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Admin. de empleados</p>
+                                        <p>Venta</p>
                                     </a>
                                 </li>
 
@@ -202,7 +201,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tree"></i>
                                 <p>
-                                    ADMIN VENTAS
+                                    VENTAS
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
@@ -222,7 +221,7 @@
                                 <li class="nav-item">
                                     <a href="/ventas_crack/index.php?route=adminCompra" <?php if ($_GET['route'] == "adminCompra") { ?> class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?>>
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Admin. Compra</p>
+                                        <p>Compra</p>
                                     </a>
                                 </li>
 

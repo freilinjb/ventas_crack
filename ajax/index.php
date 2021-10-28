@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $controlador = trim($_GET['c']);
 

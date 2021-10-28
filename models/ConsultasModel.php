@@ -1,6 +1,9 @@
 <?php
 
-require_once "Conexion.php";
+require_once "Conection.php";
+
+
+
 
 class ConsultasModel
 {

@@ -1,7 +1,7 @@
 <div class="login-page" style="min-height: 512.391px;">
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>KK</b>-ROTO</a>
+            <a href="../../index2.html"><b>Ventasa</b>-Crack</a>
         </div>
         <div class="card">
             <div class="card-body login-card-body">
@@ -39,9 +39,9 @@
                         </div>
                         <!-- /.col -->
                     </div>
-                    <?php 
-                        $login = new UserController();
-                        $login->login();
+                    <?php
+                    $login = new UserController();
+                    $login->login();
                     ?>
                 </form>
                 <p class="mb-1">

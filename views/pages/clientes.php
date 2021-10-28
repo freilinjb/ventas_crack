@@ -112,6 +112,14 @@ $tipoUsuario = EmpleadoController::getTipoUsuario(null, null);
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
+
+
+
+
+
+
+
+
                 <div class="modal-body">
                     <div class="card hovercard">
                         <div class="card-body">
