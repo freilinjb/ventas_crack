@@ -102,7 +102,7 @@ $unidad = UnidadController::getUnidad();
                 <div class="col-6-lg col-xl-6 col-sm-12">
                   <!-- Date dd/mm/yyyy -->
                   <div class="form-group">
-                    <label>Nombre</label>
+                    <label>Nombre</label>0
                     <div class="input-group">
                       <input type="text" class="form-control" name="nombre" id="nombre" value="crack2" placeholder="Ingrese el nombre" autocomplete="off">
                     </div>
