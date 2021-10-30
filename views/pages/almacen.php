@@ -96,96 +96,131 @@
 
 </div>
 
-<!--login form Modal -->
-<div class="modal fade text-left" id="modalRegistroAlmacen" tabindex="-1" role="dialog" aria-labelledby="tituloModal" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+<!-- MODAL REGISTRAR Almacen-->
+<div class="modal fade text-left" id="modalRegistroAlmacen" style="display: none; padding-right: 17px;" aria-modal="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="tituloModal">Registro de Almacen </h4>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <i data-feather="x"><span class="fa-fw select-all fas"></span></i>
-        </button>
-      </div>
-      <div class="modal-body">
 
-        <form id="registroInventario">
-          <div class="row">
-            <div class="col-12">
-              <label>Nombre <span style="color: red; font-size: 15px;">*</span> </label>
-              <input type="hidden" name="idInventario" value="0" id="idInventario">
-              <div class="form-group">
-                <input type="text" placeholder="Ingrese el nombre del Almacen" class="form-control" name="nombre" id="nombre" autocomplete="off" required>
-              </div>
-            </div>
 
-            <div class="col-md-6 col-12">
-              <label for="provincia">Provincia</label>
-              <div class="form-group">
-                <select class="form-select" name="provincia" id="provincia">
-                  <?php
-                  $provincia = ConsultasController::getDatos('provincia', 'activo', true);
-                  echo "<option value='' disabled selected>Seleccione una opcion</option>";
+      <form id="registroInventario">
 
-                  foreach ($provincia as $index => $key) {
-                    echo "<option value='" . $key['idProvincia'] . "'>" . $key['descripcion'] . "</option>";
-                  }
-                  ?>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6 col-12">
-              <label for="ciudad">Ciudad</label>
-              <div class="form-group">
-                <select class="form-select" name="ciudad" id="ciudad">
-                  <option value='' disabled selected>Seleccione una opcion</option>
-                  <?php
-                  $ciudad = ConsultasController::getDatos('ciudad', 'activo', true);
+        <div class="modal-header bg-info">
+          <h4 class="modal-title" id="tituloModal">Registro de Almacen </h4>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <!-- <i data-feather="x"><span class="fa-fw select-all fas"></span></i> -->
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
 
-                  foreach ($ciudad as $index => $key) {
-                    echo "<option value='" . $key['idCiudad'] . "'>" . $key['descripcion'] . "</option>";
-                  }
-                  ?>
-                </select>
-              </div>
-            </div>
 
-            <div class="col-12">
-              <label>Sector </label>
-              <div class="form-group">
-                <input type="text" class="form-control" name="sector" id="sector" autocomplete="off">
-              </div>
-            </div>
-            <div class="col-12">
-              <label>Dirección </label>
-              <div class="form-group">
-                <input type="text" class="form-control" name="direccion" id="direccion" autocomplete="off">
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="form-check">
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="form-check-input form-check-primary" checked name="estado" id="estado">
-                  <label class="form-check-label" for="estado">Activo</label>
+
+        <div class="modal-body">
+          <div class="card hovercard">
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col-12">
+                  <label>Nombre <span style="color: red; font-size: 15px;">*</span> </label>
+                  <input type="hidden" name="idInventario" value="0" id="idInventario">
+                  <div class="form-group">
+                    <input type="text" placeholder="Ingrese el nombre del Almacen" class="form-control" name="nombre" id="nombre" autocomplete="off" required>
+                  </div>
+                </div>
+
+                <div class="col-6-lg col-xl-6 col-sm-12">
+                  <label for="provincia">Provincia</label>
+                  <div class="form-group">
+                    <select class="form-control" name="provincia" id="provincia">
+                      <?php
+                      $provincia = ConsultasController::getDatos('provincia', null, null);
+                      echo "<option value='' disabled selected>Seleccione una opcion</option>";
+
+                      foreach ($provincia as $index => $key) {
+                        echo "<option value='" . $key['idProvincia'] . "'>" . $key['provincia'] . "</option>";
+                      }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-6-lg col-xl-6 col-sm-12">
+                  <label for="ciudad">Ciudad</label>
+                  <div class="form-group">
+                    <select class="form-control" name="ciudad" id="ciudad">
+                      <option value='' disabled selected>Seleccione una opcion</option>
+                      <?php
+                      $ciudad = ConsultasController::getDatos('ciudad', null, null);
+
+                      foreach ($ciudad as $index => $key) {
+                        echo "<option value='" . $key['idCiudad'] . "'>" . $key['ciudad'] . "</option>";
+                      }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+                <div class="col-12">
+                  <label>Sector </label>
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="sector" id="sector" autocomplete="off">
+                  </div>
+                </div>
+                <div class="col-12">
+                  <label>Dirección </label>
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="direccion" id="direccion" autocomplete="off">
+                  </div>
+                </div>
+                <!-- <div class="col-12">
+                  <div class="form-check">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="form-check-input form-check-primary" checked name="estado" id="estado">
+                      <label class="form-check-label" for="estado">Activo</label>
+                    </div>
+                  </div>
+                </div> -->
+
+
+                <div class="col-6-lg col-xl-6 col-sm-12">
+                  <div class="form-group">
+                    <label for="estado">Estado</label>
+                    <select id="estado" class="form-control" name="estado" required>
+                      <option value="1" selected>Activo</option>
+                      <option value="0">Inactivo</option>
+                    </select>
+                  </div>
                 </div>
               </div>
+              <!-- <div class="row">
+                <div class="col-12">
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                      <i class="bx bx-x d-block d-sm-none"></i>
+                      <span class="d-none d-sm-block">Cerrar</span>
+                    </button>
+                    <button type="submit" class="btn btn-primary ml-1">
+                      <i class="bx bx-check d-block d-sm-none"></i>
+                      <span class="d-none d-sm-block">Guardar</span>
+                    </button>
+                  </div>
+                </div>
+              </div> -->
+
+
+
             </div>
           </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="modal-footer">
-                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                  <i class="bx bx-x d-block d-sm-none"></i>
-                  <span class="d-none d-sm-block">Cerrar</span>
-                </button>
-                <button type="submit" class="btn btn-primary ml-1">
-                  <i class="bx bx-check d-block d-sm-none"></i>
-                  <span class="d-none d-sm-block">Guardar</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-info">Save changes</button>
+        </div>
+      </form>
 
     </div>
   </div>

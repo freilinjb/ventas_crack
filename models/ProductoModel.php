@@ -20,7 +20,8 @@ class ProductoModel
     p.codigoPro,
     p.nombrePro , 
     p.descripcion,
-    pc.precio AS precioCompra,
+    p.stock,
+    pc.precio AS precioCompra,s
     pv.precion AS precioVenta,
     CASE WHEN p.estado IS TRUE  THEN 'Activo' ELSE 'Inactivo' END AS estado
   
