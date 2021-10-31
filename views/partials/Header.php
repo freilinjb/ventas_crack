@@ -23,4 +23,11 @@
     <link rel="stylesheet" href="views/assets/dist/css/adminlte.min.css">
     <!-- STYLE PERSONAL -->
     <link rel="stylesheet" href="views/assets/css/style.css">
+
+    <!-- SELECT2 -->
+    <link rel="stylesheet" href="views/assets/vendors/select2/css/select2.min.css">
+    <link rel="stylesheet" href="views/assets/vendors/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <script src="views/assets/vendors/select2/js/select2.full.min.js"></script>
+
+
 </head>

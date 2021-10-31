@@ -13,6 +13,41 @@ $(function () {
   });
 
 
+  $('.select2').select2({
+    theme: "bootstrap4",
+    placeholder: 'Seleccione un Producto',
+    minimunInputLength: 3,
+    ajax: {
+      url: 'ajax/index.php?c=Producto&m=getConsultaProducto',
+      data: function (params) {
+        var query = {
+          buscar: params.term,
+          type: 'public'
+        }
+
+        // Query parameters will be ?search=[term]&type=public
+        return query;
+      },
+      processResults(data) {
+        console.log("data: ", data);
+        return {
+          results: $.map(data, function (item) {
+            return {
+              text: item.nombrePro,
+              id: item.idProducto,
+            };
+          }),
+        };
+      },
+    },
+    templateResult: function (data) {
+      console.log('data: ', data);
+      return data;
+    },
+    cache: true
+  });
+
+
 
 
 

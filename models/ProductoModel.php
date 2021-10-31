@@ -10,6 +10,37 @@ class ProductoModel
 
 
 
+  static public function getConsultaProducto($buscar)
+  {
+
+
+    try {
+      //code...
+      $stmp = Conection::connect()->prepare("
+          SELECT 
+            DISTINCT
+              p.idProducto,
+              p.codigoPro,
+              p.nombrePro , 
+              p.descripcion,
+              p.stock,
+              pc.precio AS precioCompra,
+              pv.precion AS precioVenta,
+              CASE WHEN p.estado IS TRUE  THEN 'Activo' ELSE 'Inactivo' END AS estado
+          FROM producto p
+          INNER JOIN precio_compra pc ON p.idProducto = pc.idProducto
+          INNER JOIN precio_venta pv ON p.idProducto = pc.idProducto
+          WHERE LOWER(CONCAT(p.codigoPro, p.nombrePro, p.descripcion)) LIKE LOWER(TRIM('%$buscar%'));
+      ");
+      // $stmp->bindParam(":busqueda", $buscar, PDO::PARAM_STR);
+
+      $stmp->execute();
+      return $stmp->fetchAll();
+    } catch (PDOException $ex) {
+      print "Error: " . $ex->getMessage();
+      //throw $th;
+    }
+  }
 
 
   static public function getProducto()

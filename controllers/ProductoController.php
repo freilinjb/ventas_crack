@@ -98,4 +98,14 @@ class ProductoController
 
     return;
   }
+
+  static public function getConsultaProducto()
+  {
+    $busqueda = $_GET['buscar'];
+
+
+    $resultados = ProductoModel::getConsultaProducto($busqueda);
+    // print_r($resultados);
+    echo json_encode($resultados);
+  }
 }
